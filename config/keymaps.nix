@@ -181,12 +181,6 @@
       options = {expr = true; desc = "Prev Search Result";};
     }
     {
-      mode = ["n" "v"];
-      key = "<leader>cf";
-      action = "function()\n  LazyVim.format({ force = true })\nend";
-      options = {desc = "Format";};
-    }
-    {
       mode = "n";
       key = "<leader>cd";
       action = "vim.diagnostic.open_float";
@@ -230,90 +224,6 @@
     }
     {
       mode = "n";
-      key = "<leader>uf";
-      action = "function() LazyVim.format.toggle() end";
-      options = {desc = "Toggle Auto Format (Global)";};
-    }
-    {
-      mode = "n";
-      key = "<leader>uF";
-      action = "function() LazyVim.format.toggle(true) end";
-      options = {desc = "Toggle Auto Format (Buffer)";};
-    }
-    {
-      mode = "n";
-      key = "<leader>us";
-      action = "function() LazyVim.toggle('spell') end";
-      options = {desc = "Toggle Spelling";};
-    }
-    {
-      mode = "n";
-      key = "<leader>uw";
-      action = "function() LazyVim.toggle('wrap') end";
-      options = {desc = "Toggle Word Wrap";};
-    }
-    {
-      mode = "n";
-      key = "<leader>uL";
-      action = "function() LazyVim.toggle('relativenumber') end";
-      options = {desc = "Toggle Relative Line Numbers";};
-    }
-    {
-      mode = "n";
-      key = "<leader>ul";
-      action = "function() LazyVim.toggle.number() end";
-      options = {desc = "Toggle Line Numbers";};
-    }
-    {
-      mode = "n";
-      key = "<leader>ud";
-      action = "function() LazyVim.toggle.diagnostics() end";
-      options = {desc = "Toggle Diagnostics";};
-    }
-    {
-      mode = "n";
-      key = "<leader>uc";
-      action = "function() LazyVim.toggle('conceallevel'; false; {0; conceallevel}) end";
-      options = {desc = "Toggle Conceal";};
-    }
-    {
-      mode = "n";
-      key = "<leader>uh";
-      action = "function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end";
-      options = {desc = "Toggle Treesitter Highlight";};
-    }
-    {
-      mode = "n";
-      key = "<leader>ub";
-      action = "function() LazyVim.toggle('background'; false; {'light'; 'dark'}) end";
-      options = {desc = "Toggle Background";};
-    }
-    {
-      mode = "n";
-      key = "<leader>gg";
-      action = "function() LazyVim.lazygit( { cwd = LazyVim.root.git() }) end";
-      options = {desc = "Lazygit (Root Dir)";};
-    }
-    {
-      mode = "n";
-      key = "<leader>gG";
-      action = "function() LazyVim.lazygit() end";
-      options = {desc = "Lazygit (cwd)";};
-    }
-    {
-      mode = "n";
-      key = "<leader>gb";
-      action = "LazyVim.lazygit.blame_line";
-      options = {desc = "Git Blame Line";};
-    }
-    {
-      mode = "n";
-      key = "<leader>gf";
-      action = "function()\n  local git_path = vim.api.nvim_buf_get_name(0)\n  LazyVim.lazygit({args = { \"-f\"; vim.trim(git_path) }})\nend";
-      options = {desc = "Lazygit Current File History";};
-    }
-    {
-      mode = "n";
       key = "<leader>qq";
       action = "<cmd>qa<cr>";
       options = {desc = "Quit All";};
@@ -323,30 +233,6 @@
       key = "<leader>ui";
       action = "vim.show_pos";
       options = {desc = "Inspect Pos";};
-    }
-    {
-      mode = "n";
-      key = "<leader>ft";
-      action = "lazyterm";
-      options = {desc = "Terminal (Root Dir)";};
-    }
-    {
-      mode = "n";
-      key = "<leader>fT";
-      action = "function() LazyVim.terminal() end";
-      options = {desc = "Terminal (cwd)";};
-    }
-    {
-      mode = "n";
-      key = "<c-/>";
-      action = "lazyterm";
-      options = {desc = "Terminal (Root Dir)";};
-    }
-    {
-      mode = "n";
-      key = "<c-_>";
-      action = "lazyterm";
-      options = {desc = "which_key_ignore";};
     }
     {
       mode = "t";
@@ -383,12 +269,6 @@
       key = "<C-/>";
       action = "<cmd>close<cr>";
       options = {desc = "Hide Terminal";};
-    }
-    {
-      mode = "t";
-      key = "<c-_>";
-      action = "<cmd>close<cr>";
-      options = {desc = "which_key_ignore";};
     }
     {
       mode = "n";
