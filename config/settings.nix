@@ -13,6 +13,8 @@
       shiftwidth = 2;
 
       breakindent = true;
+
+      cursorline = true;
     };
   };
 }
