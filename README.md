@@ -1,0 +1,2 @@
+# nixvim
+A NixVim Configuration
