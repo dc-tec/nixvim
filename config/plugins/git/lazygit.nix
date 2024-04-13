@@ -16,6 +16,6 @@
       options = {
         desc = "LazyGit (root dir)";
       };
-    }
+    };
   ];
 };
