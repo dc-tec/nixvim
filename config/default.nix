@@ -12,6 +12,14 @@
     ./plugins/editor/neo-tree.nix
     ./plugins/editor/treesitter.nix
 
+    # UI plugins
+    ./plugins/ui/bufferline.nix
+
+    # LSP
+    ./plugins/lsp/lsp.nix
+    ./plugins/lsp/conform.nix
+    ./plugins/lsp/none-ls.nix
+
     # Git
     ./plugins/git/lazygit.nix
 
