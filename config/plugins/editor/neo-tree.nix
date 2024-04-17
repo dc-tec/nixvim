@@ -5,18 +5,10 @@
     sources =  [ "filesystem" "buffers" "git_status" "document_symbols" ];
     addBlankLineAtTop = true;
     
-    fileSystem = {
-      window = {
-        bindToCwd = false;
-      };
+    filesystem = {
+      bindToCwd = false;
     };
     
-    window = {
-      mappings = {
-        
-      };
-    };
-
     defaultComponentConfigs = {
       indent = {
         expanderCollapsed = "";
