@@ -8,8 +8,9 @@
     # Themes
     ./plugins/themes/default.nix
 
-    # Syntax Highlighting
-    ./plugins/treesitter/default.nix
+    # Editor plugins and configurations
+    ./plugins/editor/neo-tree.nix
+    ./plugins/editor/treesitter.nix
 
     # Git
     ./plugins/git/lazygit.nix
