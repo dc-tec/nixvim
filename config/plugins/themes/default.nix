@@ -1,6 +1,4 @@
-{config, ...}: let
-  lua = x: {__raw = x;};
-in {
+{
   colorschemes = {
     catppuccin = {
       enable = true;
@@ -9,7 +7,7 @@ in {
           light = "macchiato";
           dark = "mocha";
         };
-        flavour = "frappe"; # "latte", "mocha", "frappe", "macchiato" or raw lua code
+        flavour = "macchiato"; # "latte", "mocha", "frappe", "macchiato" or raw lua code
         no_bold = false;
         no_italic = false;
         no_underline = false;
