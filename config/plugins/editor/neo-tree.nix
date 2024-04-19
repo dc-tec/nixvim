@@ -21,7 +21,7 @@
   keymaps = [
     {
       mode = ["n"];
-      key = "<C-b>";
+      key = "<C-e>";
       action = "<cmd>Neotree toggle<cr>";
       options = {desc = "Open/Close Neotree";};
     }
