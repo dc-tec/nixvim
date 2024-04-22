@@ -1,7 +1,15 @@
-{config, ...}: {
+{
   plugins = {
     bufferline = {
       enable = true;
+      offsets = [
+        {
+          filetype = "neo-tree";
+          text = "Neo-tree";
+          highligh = "Directory";
+          text_align = "left";
+        }
+      ];
     };
   };
   keymaps = [
