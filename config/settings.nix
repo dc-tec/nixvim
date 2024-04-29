@@ -1,5 +1,8 @@
 {
   config = {
+    clipboard = {
+      providers.wl-copy.enable = true;
+    };
     opts = {
       number = true;
       relativenumber = true;
