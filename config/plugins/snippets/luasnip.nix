@@ -8,7 +8,7 @@
     };
     fromVscode = [
       {
-        lazyLoad = false;
+        lazyLoad = true;
         paths = "${pkgs.vimPlugins.friendly-snippets}";
       }
     ];
