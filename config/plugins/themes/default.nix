@@ -14,7 +14,6 @@
         transparent_background = true;
         integrations = {
           cmp = true;
-          noice = true;
           notify = true;
           gitsigns = true;
           which_key = true;
@@ -22,7 +21,6 @@
             enabled = true;
           };
           treesitter = true;
-          treesitter_context = true;
           telescope.enabled = true;
           indent_blankline.enabled = true;
           mini.enabled = true;
