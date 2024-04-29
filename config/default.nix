@@ -12,6 +12,9 @@ _: {
     ./plugins/cmp/cmp-copilot.nix
     ./plugins/cmp/lspkind.nix
 
+    # Snippets
+    ./plugins/snippets/luasnip.nix
+
     # Editor plugins and configurations
     ./plugins/editor/neo-tree.nix
     ./plugins/editor/treesitter.nix
