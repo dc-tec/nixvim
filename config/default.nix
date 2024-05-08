@@ -26,7 +26,7 @@ _: {
     # UI plugins
     ./plugins/ui/bufferline.nix
     ./plugins/ui/lualine.nix
-    ./plugins/ui/dashboard.nix
+    ./plugins/ui/startup.nix
 
     # LSP
     ./plugins/lsp/lsp.nix
