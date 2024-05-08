@@ -19,6 +19,8 @@
       foldenable = false;
       linebreak = true;
       spell = false;
+      swapfile = false;
+      timeoutlen = 300;
     };
   };
 }

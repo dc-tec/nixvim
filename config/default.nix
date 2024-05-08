@@ -3,6 +3,7 @@ _: {
     # General Configuration
     ./settings.nix
     ./keymaps.nix
+    ./auto_cmds.nix
 
     # Themes
     ./plugins/themes/default.nix
@@ -25,6 +26,7 @@ _: {
     # UI plugins
     ./plugins/ui/bufferline.nix
     ./plugins/ui/lualine.nix
+    ./plugins/ui/startup.nix
 
     # LSP
     ./plugins/lsp/lsp.nix

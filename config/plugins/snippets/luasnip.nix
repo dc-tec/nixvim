@@ -1,4 +1,3 @@
-#TODO: Find out why we get an error when we have luasnip enabled, disabled for now!
 {pkgs, ...}: {
   plugins.luasnip = {
     enable = true;
