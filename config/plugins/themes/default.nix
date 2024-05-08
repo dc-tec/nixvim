@@ -16,8 +16,7 @@
           cmp = true;
           notify = true;
           gitsigns = true;
-          dashboard = true;
-          lualine = true;
+          neotree = true;
           which_key = true;
           illuminate = {
             enabled = true;
