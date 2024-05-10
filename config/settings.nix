@@ -21,6 +21,11 @@
       spell = false;
       swapfile = false;
       timeoutlen = 300;
+      termguicolors = true;
+      showmode = false;
+      splitbelow = true;
+      splitkeep = "screen";
+      splitright = true;
     };
   };
 }
