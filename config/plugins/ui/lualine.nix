@@ -2,6 +2,9 @@ _: {
   plugins.lualine = {
     enable = true;
     globalstatus = true;
+    extensions = [
+      "neo-tree"
+    ];
     disabledFiletypes = {
       statusline = ["startup" "alpha"];
     };
@@ -39,6 +42,12 @@ _: {
               left = 1;
               right = 0;
             };
+          };
+        }
+        {
+          name = "filename";
+          extraConfig = {
+            path = 1;
           };
         }
       ];
