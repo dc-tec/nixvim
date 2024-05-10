@@ -47,12 +47,12 @@
             "<leader>fr"
           ]
           [
-            " Recent Files"
+            "  Recent Files"
             "Telescope oldfiles"
             "<leader>fg"
           ]
           [
-            " File Browser"
+            "  File Browser"
             "Telescope file_browser"
             "<leader>fe"
           ]
