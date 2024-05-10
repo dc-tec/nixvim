@@ -36,9 +36,11 @@ _: {
 
     # Git
     ./plugins/git/lazygit.nix
+    ./plugins/git/gitsigns.nix
 
     # Utils
     ./plugins/utils/telescope.nix
     ./plugins/utils/whichkey.nix
+    ./plugins/utils/extra_plugins.nix
   ];
 }

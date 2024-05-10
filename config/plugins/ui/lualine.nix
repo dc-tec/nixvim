@@ -3,34 +3,24 @@ _: {
     enable = true;
     globalstatus = true;
     disabledFiletypes = {
-      statusline = ["dashboard" "alpha"];
+      statusline = ["startup" "alpha"];
     };
     theme = "catppuccin";
     sections = {
       lualine_a = [
         {
           name = "mode";
-          fmt = "string.lower";
-          color = {
-            fg = "none";
-            bg = "none";
-          };
         }
       ];
       lualine_b = [
         {
           name = "branch";
           icon = "";
-          color = {
-            fg = "none";
-            bg = "none";
-          };
         }
-        "diff"
       ];
       lualine_c = [
         {
-          name = "diagnostic";
+          name = "diagnostics";
           extraConfig = {
             symbols = {
               error = " ";
@@ -39,44 +29,53 @@ _: {
               hint = "󰝶 ";
             };
           };
-          color = {
-            fg = "none";
-            bg = "none";
+        }
+        {
+          name = "filetype";
+          extraConfig = {
+            icon_only = true;
+            separator = "";
+            padding = {
+              left = 1;
+              right = 0;
+            };
           };
         }
       ];
       lualine_x = [
         {
-          name = "filetype";
+          name = "diff";
           extraConfig = {
-            icon_only = true;
+            symbos = {
+              added = " ";
+              modified = " ";
+              removed = " ";
+            };
+            source = {
+              __raw = ''
+                function()
+                  local gitsings = vim.b.gitsigns_status_dict
+                  if gitsigns then
+                    return {
+                      added = gitigns.added,
+                      modified = gitigns.changed,
+                      removed = gitigns.removed
+                    }
+                  end
+                end
+              '';
+            };
           };
         }
       ];
       lualine_y = [
         {
-          name = "filename";
-          extraConfig = {
-            symbols = {
-              modified = "";
-              readonly = "";
-              unnamed = "";
-            };
-          };
-          color = {
-            fg = "none";
-            bg = "none";
-          };
-          separator.left = "";
+          name = "progress";
         }
       ];
       lualine_z = [
         {
           name = "location";
-          color = {
-            fg = "none";
-            bg = "none";
-          };
         }
       ];
     };

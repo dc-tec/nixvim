@@ -6,6 +6,9 @@
 
     filesystem = {
       bindToCwd = false;
+      followCurrentFile = {
+        enabled = true;
+      };
     };
 
     defaultComponentConfigs = {
