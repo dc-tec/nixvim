@@ -2,11 +2,12 @@
   plugins = {
     bufferline = {
       enable = true;
+      diagnostics = "nvim_lsp";
       offsets = [
         {
           filetype = "neo-tree";
           text = "Neo-tree";
-          highligh = "Directory";
+          highlight = "Directory";
           text_align = "left";
         }
       ];
