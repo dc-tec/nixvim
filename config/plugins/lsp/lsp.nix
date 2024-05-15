@@ -1,5 +1,6 @@
 {
   plugins = {
+    lsp-lines = {enable = true;};
     lsp-format = {enable = true;};
     lsp = {
       enable = true;
