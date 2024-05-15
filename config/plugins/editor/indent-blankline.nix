@@ -1,5 +1,7 @@
 {
-  plugins.indent-blankline = {
+  plugins = {
+    indent-blankline = {
     enable = true;
+  };
   };
 }
