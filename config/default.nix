@@ -31,7 +31,6 @@ _: {
     # LSP
     ./plugins/lsp/lsp.nix
     ./plugins/lsp/conform.nix
-    ./plugins/lsp/none-ls.nix
     ./plugins/lsp/fidget.nix
 
     # Git
@@ -42,5 +41,6 @@ _: {
     ./plugins/utils/telescope.nix
     ./plugins/utils/whichkey.nix
     ./plugins/utils/extra_plugins.nix
+    ./plugins/utils/mini.nix
   ];
 }
