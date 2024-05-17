@@ -4,6 +4,7 @@ _: {
     ./settings.nix
     ./keymaps.nix
     ./auto_cmds.nix
+    ./file_types.nix
 
     # Themes
     ./plugins/themes/default.nix
