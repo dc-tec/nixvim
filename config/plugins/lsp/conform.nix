@@ -74,10 +74,6 @@
           return { lsp_fallback = true }
         end
       '';
-      #formatOnSave = {
-      #  lspFallback = true;
-      #  timeoutMs = 500;
-      #};
       notifyOnError = true;
       formattersByFt = {
         html = [
@@ -123,6 +119,7 @@
           ]
         ];
         terraform = ["terraform_fmt"];
+        bicep = ["bicep"];
         bash = [
           "shellcheck"
           "shellharden"
@@ -131,6 +128,7 @@
         json = ["jq"];
         "_" = ["trim_whitespace"];
       };
+
       formatters = {
         black = {
           command = "${lib.getExe pkgs.black}";
@@ -158,6 +156,9 @@
         };
         shellharden = {
           command = "${lib.getExe pkgs.shellharden}";
+        };
+        bicep = {
+          command = "${lib.getExe pkgs.bicep}";
         };
         #yamlfmt = {
         #  command = "${lib.getExe pkgs.yamlfmt}";
