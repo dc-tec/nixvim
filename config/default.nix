@@ -23,6 +23,7 @@ _: {
     ./plugins/editor/undotree.nix
     ./plugins/editor/illuminate.nix
     ./plugins/editor/indent-blankline.nix
+    ./plugins/editor/todo-comments.nix
 
     # UI plugins
     ./plugins/ui/bufferline.nix
