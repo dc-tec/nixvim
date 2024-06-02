@@ -24,6 +24,7 @@ _: {
     ./plugins/editor/illuminate.nix
     ./plugins/editor/indent-blankline.nix
     ./plugins/editor/todo-comments.nix
+    ./plugins/editor/copilot-chat.nix
 
     # UI plugins
     ./plugins/ui/bufferline.nix
