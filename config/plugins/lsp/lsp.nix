@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   plugins = {
     lsp-lines = {enable = true;};
     lsp-format = {enable = true;};
@@ -14,6 +14,8 @@
         terraformls = {enable = true;};
         tsserver = {enable = true;};
         ansiblels = {enable = true;};
+        jsonls = {enable = true;};
+        helm-ls = {enable = true;};
         yamlls = {
           enable = true;
           extraOptions = {
@@ -90,6 +92,10 @@
       };
     };
   };
+  extraPlugins = with pkgs.vimPlugins; [
+    ansible-vim
+  ];
+
   extraConfigLua = ''
     local _border = "rounded"
 
