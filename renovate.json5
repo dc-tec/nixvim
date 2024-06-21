@@ -1,0 +1,8 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "platform": "github",
+  "semanticCommits": true,
+  "labels": ["renovate"],
+  "repositories": ["dc-tec/k8s-gitops"],
+  "extends": ["config:recommended"],
+}

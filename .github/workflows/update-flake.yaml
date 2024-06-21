@@ -1,0 +1,22 @@
+on:
+  schedule:
+    - cron: "30 00 * * 1"
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Checkout
+        uses: actions/checkout@v4
+
+      - name: Instal Nix
+        uses: DeterminateSystems/nix-installer-action@v1
+
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@v22
+        with:
+          nix-options: --debug --log-format raw
+          pr-title: "deps: update flake.lock"
+          pr-labels: |
+            dependencies
+            automated
