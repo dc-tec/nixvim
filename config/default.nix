@@ -31,10 +31,11 @@ _: {
     ./plugins/ui/lualine.nix
     ./plugins/ui/startup.nix
 
-    # LSP
+    # LSP and formatting
     ./plugins/lsp/lsp.nix
     ./plugins/lsp/conform.nix
     ./plugins/lsp/fidget.nix
+    ./plugins/lsp/vim-helm.nix
 
     # Git
     ./plugins/git/lazygit.nix
