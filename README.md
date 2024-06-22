@@ -56,6 +56,8 @@ This repository contains the configuration for NixVim, a Neovim configuration ma
 - `whichkey.nix`: Configures the WhichKey plugin for displaying key mappings.
 - `extra_plugins.nix`: Configures additional plugins.
 - `mini.nix`: Configures the Mini plugin.
+- `obsidian.nix`: Confiugres the Obsidian plugin, for note-taking purposes.
+- `markdown-preview.nix`: Configures the Markdown Preview plugin.
 
 Please refer to the individual `.nix` files for more detailed configuration information.
 
