@@ -44,6 +44,7 @@ This repository contains the configuration for NixVim, a Neovim configuration ma
 - `lsp.nix`: Configures the Neovim LSP client.
 - `conform.nix`: Configures the Conform plugin for automatic code formatting.
 - `fidget.nix`: Configures the Fidget plugin for displaying LSP diagnostics in the status line.
+- `vim-helm.nix`: Configures Vim-Helm plugin for helm template syntax
 
 ## Git
 
