@@ -2,6 +2,7 @@
   plugins = {
     lsp-lines = {enable = true;};
     lsp-format = {enable = true;};
+    helm = {enable = true;};
     lsp = {
       enable = true;
       servers = {
@@ -15,7 +16,18 @@
         tsserver = {enable = true;};
         ansiblels = {enable = true;};
         jsonls = {enable = true;};
-        helm-ls = {enable = true;};
+        helm-ls = {
+          enable = true;
+          extraOptions = {
+            settings = {
+              "helm-ls" = {
+                yamlls = {
+                  path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+                };
+              };
+            };
+          };
+        };
         yamlls = {
           enable = true;
           extraOptions = {

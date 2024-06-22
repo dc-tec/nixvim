@@ -56,6 +56,16 @@
             "Telescope file_browser"
             "<leader>fe"
           ]
+          [
+            "  Copilot Chat"
+            "CopilotChat"
+            "Chat with Github Copilot"
+          ]
+          [
+            "󰧑 SecondBrain"
+            "edit ~/projects/personal/SecondBrain"
+            "Note taking with Obsidian"
+          ]
         ];
         highlight = "string";
         defaultColor = "";

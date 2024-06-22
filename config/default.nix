@@ -35,7 +35,6 @@ _: {
     ./plugins/lsp/lsp.nix
     ./plugins/lsp/conform.nix
     ./plugins/lsp/fidget.nix
-    ./plugins/lsp/vim-helm.nix
 
     # Git
     ./plugins/git/lazygit.nix
@@ -46,5 +45,7 @@ _: {
     ./plugins/utils/whichkey.nix
     ./plugins/utils/extra_plugins.nix
     ./plugins/utils/mini.nix
+    ./plugins/utils/markdown-preview.nix
+    ./plugins/utils/obsidian.nix
   ];
 }
