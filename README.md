@@ -1,6 +1,6 @@
 # NixVim Configuration
 
-This repository contains the configuration for NixVim, a Neovim configuration managed with Nix.
+This repository contains my personal configuration NixVim, a Neovim configuration managed with Nix.
 
 ## General Configuration
 
