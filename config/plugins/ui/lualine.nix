@@ -25,6 +25,7 @@ _: {
         {
           name = "diagnostics";
           extraConfig = {
+            sources = ["nvim_lsp"];
             symbols = {
               error = " ";
               warn = " ";
