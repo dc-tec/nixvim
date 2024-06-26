@@ -7,6 +7,13 @@
           light = "macchiato";
           dark = "mocha";
         };
+        custom_highlights = ''
+          function(numbercolor)
+            return {
+            CursorLineNr = { fg = numbercolor.peach, style = {} },
+            }
+          end
+        '';
         flavour = "macchiato"; # "latte", "mocha", "frappe", "macchiato" or raw lua code
         no_bold = false;
         no_italic = false;
