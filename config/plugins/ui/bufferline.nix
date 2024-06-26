@@ -3,6 +3,12 @@
     bufferline = {
       enable = true;
       diagnostics = "nvim_lsp";
+      mode = "buffers";
+
+      closeIcon = " ";
+      bufferCloseIcon = "󰱝 ";
+      modifiedIcon = "󰔯 ";
+
       offsets = [
         {
           filetype = "neo-tree";
