@@ -28,6 +28,10 @@
           illuminate = {
             enabled = true;
           };
+          navic = {
+            enabled = true;
+            custom_bg = "NONE";
+          };
           treesitter = true;
           telescope.enabled = true;
           indent_blankline.enabled = true;

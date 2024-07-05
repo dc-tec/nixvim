@@ -16,6 +16,7 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@v22
         with:
           nix-options: --debug --log-format raw
+          token: ${{ secrets.FLAKE_TOKEN }}
           pr-title: "deps: update flake.lock"
           pr-labels: |
             dependencies
