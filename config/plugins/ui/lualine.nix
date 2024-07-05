@@ -3,6 +3,7 @@ _: {
     enable = true;
     globalstatus = true;
     extensions = [
+      "fzf"
       "neo-tree"
     ];
     disabledFiletypes = {
@@ -54,9 +55,12 @@ _: {
       ];
       lualine_x = [
         {
+          name = "navic";
+        }
+        {
           name = "diff";
           extraConfig = {
-            symbos = {
+            symbols = {
               added = " ";
               modified = " ";
               removed = " ";
