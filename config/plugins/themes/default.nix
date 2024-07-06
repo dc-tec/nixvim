@@ -8,9 +8,10 @@
           dark = "mocha";
         };
         custom_highlights = ''
-          function(numbercolor)
+          function(highlights)
             return {
-            CursorLineNr = { fg = numbercolor.peach, style = {} },
+            CursorLineNr = { fg = highlights.peach, style = {} },
+            NavicText = { fg = highlights.text },
             }
           end
         '';
@@ -27,6 +28,7 @@
           which_key = true;
           illuminate = {
             enabled = true;
+            lsp = true;
           };
           navic = {
             enabled = true;
@@ -35,11 +37,21 @@
           treesitter = true;
           telescope.enabled = true;
           indent_blankline.enabled = true;
-          mini.enabled = true;
+          mini = {
+            enabled = true;
+            indentscope_color = "rosewater";
+          };
           native_lsp = {
             enabled = true;
             inlay_hints = {
               background = true;
+            };
+            virtual_text = {
+              errors = ["italic"];
+              hints = ["italic"];
+              information = ["italic"];
+              warnings = ["italic"];
+              ok = ["italic"];
             };
             underlines = {
               errors = ["underline"];
