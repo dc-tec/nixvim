@@ -16,6 +16,7 @@
     opts = {
       number = true;
       relativenumber = true;
+      clipboard = "unnamedplus";
       tabstop = 2;
       softtabstop = 2;
       showtabline = 2;

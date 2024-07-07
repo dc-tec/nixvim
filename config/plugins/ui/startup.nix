@@ -39,32 +39,32 @@
           [
             " Find File"
             "Telescope find_files"
-            "<leader>ff"
+            "ff"
           ]
           [
             "󰍉 Find Word"
             "Telescope live_grep"
-            "<leader>fr"
+            "fr"
           ]
           [
-            "  Recent Files"
+            " Recent Files"
             "Telescope oldfiles"
-            "<leader>fg"
+            "fg"
           ]
           [
-            "  File Browser"
+            " File Browser"
             "Telescope file_browser"
-            "<leader>fe"
+            "fe"
           ]
           [
-            "  Copilot Chat"
+            " Copilot Chat"
             "CopilotChat"
-            "Chat with Github Copilot"
+            "ct"
           ]
           [
             "󰧑 SecondBrain"
             "edit ~/projects/personal/SecondBrain"
-            "Note taking with Obsidian"
+            "sb"
           ]
         ];
         highlight = "string";

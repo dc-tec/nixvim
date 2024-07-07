@@ -14,12 +14,23 @@ _: {
       lualine_a = [
         {
           name = "mode";
+          icon = " ";
         }
       ];
       lualine_b = [
         {
           name = "branch";
           icon = "";
+        }
+        {
+          name = "diff";
+          extraConfig = {
+            symbols = {
+              added = " ";
+              modified = " ";
+              removed = " ";
+            };
+          };
         }
       ];
       lualine_c = [
@@ -58,28 +69,18 @@ _: {
           name = "navic";
         }
         {
-          name = "diff";
-          extraConfig = {
-            symbols = {
-              added = " ";
-              modified = " ";
-              removed = " ";
-            };
-            source = {
-              __raw = ''
-                function()
-                  local gitsings = vim.b.gitsigns_status_dict
-                  if gitsigns then
-                    return {
-                      added = gitigns.added,
-                      modified = gitigns.changed,
-                      removed = gitigns.removed
-                    }
-                  end
-                end
-              '';
-            };
-          };
+          name.__raw = ''
+            function()
+              local icon = " "
+              local status = require("copilot.api").status.data
+              return icon .. (status.message or " ")
+            end,
+
+            cond = function()
+             local ok, clients = pcall(vim.lsp.get_clients, { name = "copilot", bufnr = 0 })
+             return ok and #clients > 0
+            end,
+          '';
         }
       ];
       lualine_y = [
