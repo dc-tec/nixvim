@@ -18,6 +18,7 @@ This repository contains my personal configuration NixVim, a Neovim configuratio
 - `cmp.nix`: Configures the cmp completion framework.
 - `cmp-copilot.nix`: Adds GitHub Copilot support to cmp.
 - `lspkind.nix`: Adds icons to lsp completion items.
+- `autopairs.nix`: Adds the autopairs plugin.
 
 ## Snippets
 
