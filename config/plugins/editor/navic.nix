@@ -1,7 +1,7 @@
 _: {
   plugins.navic = {
     enable = true;
-    separator = "  ";
+    separator = "  ";
     highlight = true;
     depthLimit = 5;
     lsp = {

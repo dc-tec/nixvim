@@ -47,6 +47,11 @@ _: {
           };
         }
         {
+          name = "navic";
+        }
+      ];
+      lualine_x = [
+        {
           name = "filetype";
           extraConfig = {
             icon_only = true;
@@ -62,11 +67,6 @@ _: {
           extraConfig = {
             path = 1;
           };
-        }
-      ];
-      lualine_x = [
-        {
-          name = "navic";
         }
         {
           name.__raw = ''
