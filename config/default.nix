@@ -49,5 +49,6 @@ _: {
     ./plugins/utils/mini.nix
     ./plugins/utils/markdown-preview.nix
     ./plugins/utils/obsidian.nix
+    ./plugins/utils/toggleterm.nix
   ];
 }
