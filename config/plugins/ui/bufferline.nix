@@ -7,9 +7,9 @@
           diagnostics = "nvim_lsp";
           mode = "buffers";
 
-          closeIcon = " ";
-          bufferCloseIcon = "󰱝 ";
-          modifiedIcon = "󰔯 ";
+          close_icon = " ";
+          buffer_close_icon = "󰱝 ";
+          modified_icon = "󰔯 ";
 
           offsets = [
             {
