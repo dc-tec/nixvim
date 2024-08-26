@@ -2,23 +2,28 @@
   plugins = {
     bufferline = {
       enable = true;
-      diagnostics = "nvim_lsp";
-      mode = "buffers";
+      settings = {
+        options = {
+          diagnostics = "nvim_lsp";
+          mode = "buffers";
 
-      closeIcon = " ";
-      bufferCloseIcon = "󰱝 ";
-      modifiedIcon = "󰔯 ";
+          close_icon = " ";
+          buffer_close_icon = "󰱝 ";
+          modified_icon = "󰔯 ";
 
-      offsets = [
-        {
-          filetype = "neo-tree";
-          text = "Neo-tree";
-          highlight = "Directory";
-          text_align = "left";
-        }
-      ];
+          offsets = [
+            {
+              filetype = "neo-tree";
+              text = "Neo-tree";
+              highlight = "Directory";
+              text_align = "left";
+            }
+          ];
+        };
+      };
     };
   };
+
   keymaps = [
     {
       mode = "n";
