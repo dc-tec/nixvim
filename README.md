@@ -53,6 +53,7 @@ home-manager.users.<user>.home.packages = [
 - `cmp-copilot.nix`: Adds GitHub Copilot support to cmp.
 - `lspkind.nix`: Adds icons to lsp completion items.
 - `autopairs.nix`: Adds the autopairs plugin.
+- `schemastore.nix`: Adds the schemastore plugin for JSON and YAML schemas.
 
 ### Snippets
 
