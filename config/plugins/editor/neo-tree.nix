@@ -14,8 +14,8 @@
     defaultComponentConfigs = {
       indent = {
         withExpanders = true;
-        expanderCollapsed = "";
-        expanderExpanded = " ";
+        expanderCollapsed = "󰅂";
+        expanderExpanded = "󰅀";
         expanderHighlight = "NeoTreeExpander";
       };
 
@@ -29,7 +29,7 @@
           renamed = "󰑕";
           staged = "󰩍";
           unstaged = "";
-          untracked = "";
+          untracked = " ";
         };
       };
     };
