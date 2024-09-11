@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Instal Nix
-        uses: DeterminateSystems/nix-installer-action@v13
+        uses: DeterminateSystems/nix-installer-action@v14
 
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v23
