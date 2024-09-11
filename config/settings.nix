@@ -86,6 +86,11 @@
 
       # Hide command line unless needed
       cmdheight = 0;
+
+      # Remove EOB
+      fillchars = {
+        eob = " ";
+      };
     };
   };
 }
