@@ -51,5 +51,6 @@ _: {
     ./plugins/utils/markdown-preview.nix
     ./plugins/utils/obsidian.nix
     ./plugins/utils/toggleterm.nix
+    ./plugins/utils/web-devicons.nix
   ];
 }
