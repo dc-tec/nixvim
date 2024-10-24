@@ -44,12 +44,12 @@
             src = ./.;
             hooks = {
               statix.enable = true;
-              alejandra.enable = true;
+              nixfmt-rfc-style.enable = true;
             };
           };
         };
 
-        formatter = pkgs.alejandra;
+        formatter = pkgs.nixfmt-rfc-style;
 
         packages.default = nvim;
 
