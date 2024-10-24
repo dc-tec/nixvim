@@ -106,7 +106,7 @@
             "isort"
           ];
           lua = ["stylua"];
-          nix = ["alejandra"];
+          nix = ["nixfmt-rfc-style"];
           markdown = [
             [
               "prettierd"
@@ -136,6 +136,9 @@
           };
           isort = {
             command = "${lib.getExe pkgs.isort}";
+          };
+          nixfmt-rfc-style = {
+            command = "${lib.getExe pkgs.nixfmt-rfc-style}";
           };
           alejandra = {
             command = "${lib.getExe pkgs.alejandra}";
