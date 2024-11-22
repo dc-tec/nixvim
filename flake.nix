@@ -29,17 +29,21 @@
         lib,
         ...
       }: let
+        nixvimLib = nixvim.lib.${system};
         nixvim' = nixvim.legacyPackages.${system};
-        nvim = nixvim'.makeNixvimWithModule {
+        nixvimModule = {
           inherit pkgs;
-          module = ./config;
-        };
-      in {
-        checks = {
-          default = pkgs.nixvimLib.check.mkTestDerivationFromNvim {
-            inherit nvim;
-            name = "A nixvim configuration";
+          module = import ./config; # import the module directly
+          # You can use `extraSpecialArgs` to pass additional arguments to your module files
+          extraSpecialArgs = {
+            # inherit (inputs) foo;
           };
+        };
+        nvim = nixvim'.makeNixvimWithModule nixvimModule;
+      in
+      {
+        checks = {
+          default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
           pre-commit-check = pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
