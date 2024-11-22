@@ -3,7 +3,7 @@
     enable = true;
     logger = {
       level = "warn"; # “off”, “error”, “warn”, “info”, “debug”, “trace”
-      floatPrecision = 0.01; # Limit the number of decimals displayed for floats
+      floatPrecision = 1.0e-2; # Limit the number of decimals displayed for floats
     };
     progress = {
       pollRate = 0; # How and when to poll for progress messages
@@ -23,7 +23,7 @@
         ''
           function(msg) return msg.lsp_client.name end
         '';
-      ignore = []; # List of LSP servers to ignore
+      ignore = [ ]; # List of LSP servers to ignore
       lsp = {
         progressRingbufSize = 0; # Configure the nvim's LSP progress ring buffer size
       };
