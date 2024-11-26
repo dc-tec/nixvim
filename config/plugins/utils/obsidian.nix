@@ -12,7 +12,7 @@
         subdir = "templates";
         dateFormat = "%Y-%m-%d";
         timeFormat = "%H:%M";
-        substitutions = {};
+        substitutions = { };
       };
 
       dailyNotes = {

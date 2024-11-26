@@ -9,7 +9,10 @@ _: {
           "neo-tree"
         ];
         disabledFiletypes = {
-          statusline = ["startup" "alpha"];
+          statusline = [
+            "startup"
+            "alpha"
+          ];
         };
         theme = "catppuccin";
       };
@@ -37,7 +40,7 @@ _: {
         lualine_c = [
           {
             __unkeyed-1 = "diagnostics";
-            sources = ["nvim_lsp"];
+            sources = [ "nvim_lsp" ];
             symbols = {
               error = " ";
               warn = " ";

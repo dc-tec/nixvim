@@ -47,17 +47,17 @@
               background = true;
             };
             virtual_text = {
-              errors = ["italic"];
-              hints = ["italic"];
-              information = ["italic"];
-              warnings = ["italic"];
-              ok = ["italic"];
+              errors = [ "italic" ];
+              hints = [ "italic" ];
+              information = [ "italic" ];
+              warnings = [ "italic" ];
+              ok = [ "italic" ];
             };
             underlines = {
-              errors = ["underline"];
-              hints = ["underline"];
-              information = ["underline"];
-              warnings = ["underline"];
+              errors = [ "underline" ];
+              hints = [ "underline" ];
+              information = [ "underline" ];
+              warnings = [ "underline" ];
             };
           };
         };
