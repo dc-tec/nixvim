@@ -3,7 +3,10 @@
 
   keymaps = [
     {
-      mode = ["n" "x"];
+      mode = [
+        "n"
+        "x"
+      ];
       key = "j";
       action = "v:count == 0 ? 'gj' : 'j'";
       options = {
@@ -12,7 +15,10 @@
       };
     }
     {
-      mode = ["n" "x"];
+      mode = [
+        "n"
+        "x"
+      ];
       key = "<Down>";
       action = "v:count == 0 ? 'gj' : 'j'";
       options = {
@@ -21,7 +27,10 @@
       };
     }
     {
-      mode = ["n" "x"];
+      mode = [
+        "n"
+        "x"
+      ];
       key = "k";
       action = "v:count == 0 ? 'gk' : 'k'";
       options = {
@@ -30,7 +39,10 @@
       };
     }
     {
-      mode = ["n" "x"];
+      mode = [
+        "n"
+        "x"
+      ];
       key = "<Up>";
       action = "v:count == 0 ? 'gk' : 'k'";
       options = {
@@ -78,61 +90,81 @@
       mode = "n";
       key = "<C-Up>";
       action = "<cmd>resize +2<cr>";
-      options = {desc = "Increase Window Height";};
+      options = {
+        desc = "Increase Window Height";
+      };
     }
     {
       mode = "n";
       key = "<C-Down>";
       action = "<cmd>resize -2<cr>";
-      options = {desc = "Decrease Window Height";};
+      options = {
+        desc = "Decrease Window Height";
+      };
     }
     {
       mode = "n";
       key = "<C-Left>";
       action = "<cmd>vertical resize -2<cr>";
-      options = {desc = "Decrease Window Width";};
+      options = {
+        desc = "Decrease Window Width";
+      };
     }
     {
       mode = "n";
       key = "<C-Right>";
       action = "<cmd>vertical resize +2<cr>";
-      options = {desc = "Increase Window Width";};
+      options = {
+        desc = "Increase Window Width";
+      };
     }
     {
       mode = "n";
       key = "<A-j>";
       action = "<cmd>m .+1<cr>==";
-      options = {desc = "Move Down";};
+      options = {
+        desc = "Move Down";
+      };
     }
     {
       mode = "n";
       key = "<A-k>";
       action = "<cmd>m .-2<cr>==";
-      options = {desc = "Move Up";};
+      options = {
+        desc = "Move Up";
+      };
     }
     {
       mode = "i";
       key = "<A-j>";
       action = "<esc><cmd>m .+1<cr>==gi";
-      options = {desc = "Move Down";};
+      options = {
+        desc = "Move Down";
+      };
     }
     {
       mode = "i";
       key = "<A-k>";
       action = "<esc><cmd>m .-2<cr>==gi";
-      options = {desc = "Move Up";};
+      options = {
+        desc = "Move Up";
+      };
     }
     {
       mode = "v";
       key = "<A-j>";
       action = ":m '>+1<cr>gv=gv";
-      options = {desc = "Move Down";};
+      options = {
+        desc = "Move Down";
+      };
     }
     {
       mode = "v";
       key = "<A-k>";
       action = ":m '<-2<cr>gv=gv";
-      options = {desc = "Move Up";};
+      options = {
+        desc = "Move Up";
+      };
     }
     {
       mode = "i";
@@ -150,22 +182,36 @@
       action = ";<c-g>u";
     }
     {
-      mode = ["i" "x" "n" "s"];
+      mode = [
+        "i"
+        "x"
+        "n"
+        "s"
+      ];
       key = "<C-s>";
       action = "<cmd>w<cr><esc>";
-      options = {desc = "Save File";};
+      options = {
+        desc = "Save File";
+      };
     }
     {
-      mode = ["i" "n"];
+      mode = [
+        "i"
+        "n"
+      ];
       key = "<esc>";
       action = "<cmd>noh<cr><esc>";
-      options = {desc = "Escape and Clear hlsearch";};
+      options = {
+        desc = "Escape and Clear hlsearch";
+      };
     }
     {
       mode = "n";
       key = "<leader>ur";
       action = "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>";
-      options = {desc = "Redraw / Clear hlsearch / Diff Update";};
+      options = {
+        desc = "Redraw / Clear hlsearch / Diff Update";
+      };
     }
     {
       mode = "n";
@@ -225,91 +271,121 @@
       mode = "n";
       key = "<leader>cd";
       action = "vim.diagnostic.open_float";
-      options = {desc = "Line Diagnostics";};
+      options = {
+        desc = "Line Diagnostics";
+      };
     }
     {
       mode = "n";
       key = "]d";
       action = "diagnostic_goto(true)";
-      options = {desc = "Next Diagnostic";};
+      options = {
+        desc = "Next Diagnostic";
+      };
     }
     {
       mode = "n";
       key = "[d";
       action = "diagnostic_goto(false)";
-      options = {desc = "Prev Diagnostic";};
+      options = {
+        desc = "Prev Diagnostic";
+      };
     }
     {
       mode = "n";
       key = "]e";
       action = "diagnostic_goto(true 'ERROR')";
-      options = {desc = "Next Error";};
+      options = {
+        desc = "Next Error";
+      };
     }
     {
       mode = "n";
       key = "[e";
       action = "diagnostic_goto(false 'ERROR')";
-      options = {desc = "Prev Error";};
+      options = {
+        desc = "Prev Error";
+      };
     }
     {
       mode = "n";
       key = "]w";
       action = "diagnostic_goto(true 'WARN')";
-      options = {desc = "Next Warning";};
+      options = {
+        desc = "Next Warning";
+      };
     }
     {
       mode = "n";
       key = "[w";
       action = "diagnostic_goto(false 'WARN')";
-      options = {desc = "Prev Warning";};
+      options = {
+        desc = "Prev Warning";
+      };
     }
     {
       mode = "n";
       key = "<leader>qq";
       action = "<cmd>qa<cr>";
-      options = {desc = "Quit All";};
+      options = {
+        desc = "Quit All";
+      };
     }
     {
       mode = "n";
       key = "<leader>ui";
       action = "vim.show_pos";
-      options = {desc = "Inspect Pos";};
+      options = {
+        desc = "Inspect Pos";
+      };
     }
     {
       mode = "t";
       key = "<esc><esc>";
       action = "<c-\\><c-n>";
-      options = {desc = "Enter Normal Mode";};
+      options = {
+        desc = "Enter Normal Mode";
+      };
     }
     {
       mode = "t";
       key = "<C-h>";
       action = "<cmd>wincmd h<cr>";
-      options = {desc = "Go to Left Window";};
+      options = {
+        desc = "Go to Left Window";
+      };
     }
     {
       mode = "t";
       key = "<C-j>";
       action = "<cmd>wincmd j<cr>";
-      options = {desc = "Go to Lower Window";};
+      options = {
+        desc = "Go to Lower Window";
+      };
     }
     {
       mode = "t";
       key = "<C-k>";
       action = "<cmd>wincmd k<cr>";
-      options = {desc = "Go to Upper Window";};
+      options = {
+        desc = "Go to Upper Window";
+      };
     }
     {
       mode = "t";
       key = "<C-l>";
       action = "<cmd>wincmd l<cr>";
-      options = {desc = "Go to Right Window";};
+      options = {
+        desc = "Go to Right Window";
+      };
     }
     {
       mode = "t";
       key = "<C-/>";
       action = "<cmd>close<cr>";
-      options = {desc = "Hide Terminal";};
+      options = {
+        desc = "Hide Terminal";
+      };
     }
     {
       mode = "n";
@@ -369,37 +445,49 @@
       mode = "n";
       key = "<leader><tab>l";
       action = "<cmd>tablast<cr>";
-      options = {desc = "Last Tab";};
+      options = {
+        desc = "Last Tab";
+      };
     }
     {
       mode = "n";
       key = "<leader><tab>f";
       action = "<cmd>tabfirst<cr>";
-      options = {desc = "First Tab";};
+      options = {
+        desc = "First Tab";
+      };
     }
     {
       mode = "n";
       key = "<leader><tab><tab>";
       action = "<cmd>tabnew<cr>";
-      options = {desc = "New Tab";};
+      options = {
+        desc = "New Tab";
+      };
     }
     {
       mode = "n";
       key = "<leader><tab>]";
       action = "<cmd>tabnext<cr>";
-      options = {desc = "Next Tab";};
+      options = {
+        desc = "Next Tab";
+      };
     }
     {
       mode = "n";
       key = "<leader><tab>d";
       action = "<cmd>tabclose<cr>";
-      options = {desc = "Close Tab";};
+      options = {
+        desc = "Close Tab";
+      };
     }
     {
       mode = "n";
       key = "<leader><tab>[";
       action = "<cmd>tabprevious<cr>";
-      options = {desc = "Previous Tab";};
+      options = {
+        desc = "Previous Tab";
+      };
     }
   ];
 }

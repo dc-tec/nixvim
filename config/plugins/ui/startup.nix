@@ -74,7 +74,10 @@
     };
 
     options = {
-      paddings = [1 3];
+      paddings = [
+        1
+        3
+      ];
     };
 
     parts = [

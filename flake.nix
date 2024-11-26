@@ -12,15 +12,21 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    nixvim,
-    flake-parts,
-    pre-commit-hooks,
-    ...
-  } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin"];
+  outputs =
+    {
+      nixpkgs,
+      nixvim,
+      flake-parts,
+      pre-commit-hooks,
+      ...
+    }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "aarch64-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
 
       perSystem = {
         system,
@@ -51,16 +57,14 @@
               nixfmt-rfc-style.enable = true;
             };
           };
+
+          formatter = pkgs.nixfmt-rfc-style;
+
+          packages.default = nvim;
+
+          devShells = {
+            default = with pkgs; mkShell { inherit (self'.checks.pre-commit-check) shellHook; };
+          };
         };
-
-        formatter = pkgs.nixfmt-rfc-style;
-
-        packages.default = nvim;
-
-        devShells = {
-          default = with pkgs;
-            mkShell {inherit (self'.checks.pre-commit-check) shellHook;};
-        };
-      };
     };
 }
