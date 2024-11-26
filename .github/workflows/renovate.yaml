@@ -9,7 +9,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: Renovate
-        uses: renovatebot/github-action@v40.3.6
+        uses: renovatebot/github-action@v41.0.3
         with:
           configurationFile: renovate.json5
           renovate-version: full
