@@ -5,9 +5,15 @@ on:
     - cron: "30 00 * * 1"
   workflow_dispatch: # Allow manual triggering
 
+# Set default permissions as read only
+permissions: read-all
+
 jobs:
   update-flake:
     runs-on: ubuntu-latest
+    permissions:
+      # Only need contents write to update the flake lock file
+      contents: write
     outputs:
       update_available: ${{ steps.check_updates.outputs.update_available }}
     
@@ -49,6 +55,11 @@ jobs:
 
   build-and-check:
     needs: update-flake
+    permissions:
+      # Needed for checking out code
+      contents: read
+      # Needed for creating issues
+      issues: write
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -91,7 +102,6 @@ jobs:
         if: env.build_status == 'failure'
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const os = '${{ matrix.os }}';
             const buildOutput = process.env.build_output;
