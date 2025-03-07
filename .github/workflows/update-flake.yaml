@@ -5,8 +5,61 @@ on:
     - cron: "30 00 * * 1"
   workflow_dispatch: # Allow manual triggering
 
+# Set default permissions as read only
+permissions: read-all
+
 jobs:
-  build-and-update:
+  update-flake:
+    runs-on: ubuntu-latest
+    permissions:
+      # Only need contents write to update the flake lock file
+      contents: write
+    outputs:
+      update_available: ${{ steps.check_updates.outputs.update_available }}
+    
+    steps:
+      - name: Repository Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16
+
+      - name: Check for Updates
+        id: check_updates
+        run: |
+          # Create a temporary copy of flake.lock
+          cp flake.lock flake.lock.backup
+          
+          # Try to update flake.lock
+          nix flake update
+          
+          # Check if there are differences
+          if ! cmp -s flake.lock flake.lock.backup; then
+            echo "update_available=true" >> "$GITHUB_OUTPUT"
+            # Restore original flake.lock
+            mv flake.lock.backup flake.lock
+          else
+            echo "update_available=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update flake.lock
+        if: steps.check_updates.outputs.update_available == 'true'
+        uses: DeterminateSystems/update-flake-lock@v24
+        with:
+          nix-options: --debug --log-format raw
+          token: ${{ secrets.FLAKE_TOKEN }}
+          pr-title: "deps: update flake.lock"
+          pr-labels: |
+            dependencies
+            automated
+
+  build-and-check:
+    needs: update-flake
+    permissions:
+      # Needed for checking out code
+      contents: read
+      # Needed for creating issues
+      issues: write
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -17,6 +70,8 @@ jobs:
     steps:
       - name: Repository Checkout
         uses: actions/checkout@v4
+        with:
+          ref: update_flake_lock_action
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
@@ -25,17 +80,22 @@ jobs:
         id: build
         continue-on-error: true # Continue to next steps even if build fails
         run: |
+          set +e  # Don't exit immediately on error
           # Run the build and capture output
           OUTPUT=$(nix build .# 2>&1)
+          BUILD_EXIT_CODE=$?
           echo "build_output<<EOF" >> $GITHUB_ENV
           echo "$OUTPUT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           
           # Check if build succeeded
-          if [ $? -eq 0 ]; then
+          if [ $BUILD_EXIT_CODE -eq 0 ]; then
             echo "build_status=success" >> $GITHUB_ENV
           else
             echo "build_status=failure" >> $GITHUB_ENV
+            # Ensure the error is visible in the logs
+            echo "::error::Build failed with exit code $BUILD_EXIT_CODE"
+            echo "$OUTPUT"
           fi
 
       - name: Create Issue on Build Failure
@@ -45,12 +105,33 @@ jobs:
           script: |
             const os = '${{ matrix.os }}';
             const buildOutput = process.env.build_output;
+            const isUpdate = '${{ needs.update-flake.outputs.update_available }}' === 'true';
+            
+            // Extract warnings and errors from build output
+            const warnings = buildOutput.match(/evaluation warning:[^\n]+/g) || [];
+            const errors = buildOutput.match(/error:[^\n]+/g) || [];
+            
+            // Create a summary section
+            const summary = [
+              warnings.length > 0 ? `${warnings.length} evaluation warnings` : '',
+              errors.length > 0 ? `${errors.length} errors` : ''
+            ].filter(Boolean).join(' and ');
+            
+            // Get repository information from context
+            const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
             
             await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.name,
-              title: `🔨 Build Failed on ${os}`,
-              body: `Build failed during automated validation on ${os}.
+              owner,
+              repo,
+              title: `🔨 Build Failed on ${os}: ${summary}${isUpdate ? ' (Dependency Update)' : ''}`,
+              body: `Build failed during automated validation on ${os}${isUpdate ? ' while testing dependency updates.' : '.'}\n
+              ${isUpdate ? 'This failure occurred on the dependency update branch `deps/update-flake-lock`.' : 'This failure occurred on the main branch.'}\n
+              
+              ### Summary
+              ${summary}\n
+              
+              ${warnings.length > 0 ? `### Warnings\n\`\`\`\n${warnings.join('\n')}\n\`\`\`\n` : ''}
+              ${errors.length > 0 ? `### Errors\n\`\`\`\n${errors.join('\n')}\n\`\`\`\n` : ''}
               
               <details>
               <summary>Build Output</summary>
@@ -61,60 +142,10 @@ jobs:
               </details>
               
               Please review the build output and fix any issues.`,
-              labels: ['build-failure', 'bug']
-            });
-
-      - name: Update flake.lock
-        if: matrix.os == 'ubuntu-latest' && env.build_status == 'success'
-        uses: DeterminateSystems/update-flake-lock@v24
-        with:
-          nix-options: --debug --log-format raw
-          token: ${{ secrets.FLAKE_TOKEN }}
-          pr-title: "deps: update flake.lock"
-          pr-labels: |
-            dependencies
-            automated
-
-      - name: Run Checks
-        id: checks
-        if: env.build_status == 'success'
-        continue-on-error: true
-        run: |
-          # Run the checks and capture output
-          OUTPUT=$(nix flake check 2>&1)
-          echo "check_output<<EOF" >> $GITHUB_ENV
-          echo "$OUTPUT" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          
-          # Check if checks succeeded
-          if [ $? -eq 0 ]; then
-            echo "check_status=success" >> $GITHUB_ENV
-          else
-            echo "check_status=failure" >> $GITHUB_ENV
-          fi
-
-      - name: Create Issue on Check Failure
-        if: env.check_status == 'failure'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const os = '${{ matrix.os }}';
-            const checkOutput = process.env.check_output;
-            
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.name,
-              title: `⚠️ Checks Failed on ${os}`,
-              body: `Checks failed during automated validation on ${os}.
-              
-              <details>
-              <summary>Check Output</summary>
-              
-              \`\`\`
-              ${checkOutput}
-              \`\`\`
-              </details>
-              
-              Please review the check output and fix any issues.`,
-              labels: ['check-failure', 'bug']
+              labels: [
+                'build-failure',
+                'bug',
+                ...(warnings.length > 0 ? ['has-warnings'] : []),
+                ...(errors.length > 0 ? ['has-errors'] : [])
+              ]
             });
