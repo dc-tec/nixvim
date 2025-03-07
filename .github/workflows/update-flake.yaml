@@ -6,7 +6,32 @@ on:
   workflow_dispatch: # Allow manual triggering
 
 jobs:
-  build-and-update:
+  update-flake:
+    runs-on: ubuntu-latest
+    outputs:
+      pr_number: ${{ steps.update-flake.outputs.pull_request_number }}
+    
+    steps:
+      - name: Repository Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v16
+
+      - name: Update flake.lock
+        id: update-flake
+        uses: DeterminateSystems/update-flake-lock@v24
+        with:
+          nix-options: --debug --log-format raw
+          token: ${{ secrets.FLAKE_TOKEN }}
+          pr-title: "deps: update flake.lock"
+          pr-labels: |
+            dependencies
+            automated
+
+  build-and-check:
+    needs: update-flake
+    if: needs.update-flake.outputs.pr_number != ''
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -17,6 +42,8 @@ jobs:
     steps:
       - name: Repository Checkout
         uses: actions/checkout@v4
+        with:
+          ref: "deps/update-flake-lock" # Checkout the branch created by update-flake-lock
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
@@ -45,12 +72,13 @@ jobs:
           script: |
             const os = '${{ matrix.os }}';
             const buildOutput = process.env.build_output;
+            const prNumber = '${{ needs.update-flake.outputs.pr_number }}';
             
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.name,
-              title: `🔨 Build Failed on ${os}`,
-              body: `Build failed during automated validation on ${os}.
+              title: `🔨 Build Failed on ${os} for PR #${prNumber}`,
+              body: `Build failed during automated validation on ${os} for PR #${prNumber}.
               
               <details>
               <summary>Build Output</summary>
@@ -63,17 +91,6 @@ jobs:
               Please review the build output and fix any issues.`,
               labels: ['build-failure', 'bug']
             });
-
-      - name: Update flake.lock
-        if: matrix.os == 'ubuntu-latest' && env.build_status == 'success'
-        uses: DeterminateSystems/update-flake-lock@v24
-        with:
-          nix-options: --debug --log-format raw
-          token: ${{ secrets.FLAKE_TOKEN }}
-          pr-title: "deps: update flake.lock"
-          pr-labels: |
-            dependencies
-            automated
 
       - name: Run Checks
         id: checks
@@ -100,12 +117,13 @@ jobs:
           script: |
             const os = '${{ matrix.os }}';
             const checkOutput = process.env.check_output;
+            const prNumber = '${{ needs.update-flake.outputs.pr_number }}';
             
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.name,
-              title: `⚠️ Checks Failed on ${os}`,
-              body: `Checks failed during automated validation on ${os}.
+              title: `⚠️ Checks Failed on ${os} for PR #${prNumber}`,
+              body: `Checks failed during automated validation on ${os} for PR #${prNumber}.
               
               <details>
               <summary>Check Output</summary>
