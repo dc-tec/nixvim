@@ -69,21 +69,27 @@ jobs:
         id: build
         continue-on-error: true # Continue to next steps even if build fails
         run: |
+          set +e  # Don't exit immediately on error
           # Run the build and capture output
           OUTPUT=$(nix build .# 2>&1)
+          BUILD_EXIT_CODE=$?
           echo "build_output<<EOF" >> $GITHUB_ENV
           echo "$OUTPUT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           
           # Check if build succeeded
-          if [ $? -eq 0 ]; then
+          if [ $BUILD_EXIT_CODE -eq 0 ]; then
             echo "build_status=success" >> $GITHUB_ENV
           else
             echo "build_status=failure" >> $GITHUB_ENV
+            # Ensure the error is visible in the logs
+            echo "::error::Build failed with exit code $BUILD_EXIT_CODE"
+            echo "$OUTPUT"
           fi
+          exit $BUILD_EXIT_CODE  # Preserve the original exit code for continue-on-error
 
       - name: Create Issue on Build Failure
-        if: env.build_status == 'failure'
+        if: failure() && steps.build.outcome == 'failure'
         uses: actions/github-script@v7
         with:
           script: |
@@ -112,24 +118,30 @@ jobs:
 
       - name: Run Checks
         id: checks
-        if: env.build_status == 'success'
+        if: success() && steps.build.outcome == 'success'
         continue-on-error: true
         run: |
+          set +e  # Don't exit immediately on error
           # Run the checks and capture output
           OUTPUT=$(nix flake check 2>&1)
+          CHECK_EXIT_CODE=$?
           echo "check_output<<EOF" >> $GITHUB_ENV
           echo "$OUTPUT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           
           # Check if checks succeeded
-          if [ $? -eq 0 ]; then
+          if [ $CHECK_EXIT_CODE -eq 0 ]; then
             echo "check_status=success" >> $GITHUB_ENV
           else
             echo "check_status=failure" >> $GITHUB_ENV
+            # Ensure the error is visible in the logs
+            echo "::error::Checks failed with exit code $CHECK_EXIT_CODE"
+            echo "$OUTPUT"
           fi
+          exit $CHECK_EXIT_CODE  # Preserve the original exit code for continue-on-error
 
       - name: Create Issue on Check Failure
-        if: env.check_status == 'failure'
+        if: failure() && steps.checks.outcome == 'failure'
         uses: actions/github-script@v7
         with:
           script: |
