@@ -9,7 +9,7 @@ jobs:
   update-flake:
     runs-on: ubuntu-latest
     outputs:
-      pr_number: ${{ steps.update-flake.outputs.pull_request_number }}
+      update_available: ${{ steps.check_updates.outputs.update_available }}
     
     steps:
       - name: Repository Checkout
@@ -18,8 +18,26 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
 
+      - name: Check for Updates
+        id: check_updates
+        run: |
+          # Create a temporary copy of flake.lock
+          cp flake.lock flake.lock.backup
+          
+          # Try to update flake.lock
+          nix flake update
+          
+          # Check if there are differences
+          if ! cmp -s flake.lock flake.lock.backup; then
+            echo "update_available=true" >> "$GITHUB_OUTPUT"
+            # Restore original flake.lock
+            mv flake.lock.backup flake.lock
+          else
+            echo "update_available=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Update flake.lock
-        id: update-flake
+        if: steps.check_updates.outputs.update_available == 'true'
         uses: DeterminateSystems/update-flake-lock@v24
         with:
           nix-options: --debug --log-format raw
@@ -31,7 +49,6 @@ jobs:
 
   build-and-check:
     needs: update-flake
-    if: needs.update-flake.outputs.pr_number != ''
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -43,7 +60,7 @@ jobs:
       - name: Repository Checkout
         uses: actions/checkout@v4
         with:
-          ref: "deps/update-flake-lock" # Checkout the branch created by update-flake-lock
+          ref: ${{ needs.update-flake.outputs.update_available == 'true' && 'deps/update-flake-lock' || 'HEAD' }}
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
@@ -72,13 +89,14 @@ jobs:
           script: |
             const os = '${{ matrix.os }}';
             const buildOutput = process.env.build_output;
-            const prNumber = '${{ needs.update-flake.outputs.pr_number }}';
+            const isUpdate = '${{ needs.update-flake.outputs.update_available }}' === 'true';
             
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.name,
-              title: `🔨 Build Failed on ${os} for PR #${prNumber}`,
-              body: `Build failed during automated validation on ${os} for PR #${prNumber}.
+              title: `🔨 Build Failed on ${os}${isUpdate ? ' (Dependency Update)' : ''}`,
+              body: `Build failed during automated validation on ${os}${isUpdate ? ' while testing dependency updates.' : '.'}\n
+              ${isUpdate ? 'This failure occurred on the dependency update branch `deps/update-flake-lock`.' : 'This failure occurred on the main branch.'}\n
               
               <details>
               <summary>Build Output</summary>
@@ -117,13 +135,14 @@ jobs:
           script: |
             const os = '${{ matrix.os }}';
             const checkOutput = process.env.check_output;
-            const prNumber = '${{ needs.update-flake.outputs.pr_number }}';
+            const isUpdate = '${{ needs.update-flake.outputs.update_available }}' === 'true';
             
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.name,
-              title: `⚠️ Checks Failed on ${os} for PR #${prNumber}`,
-              body: `Checks failed during automated validation on ${os} for PR #${prNumber}.
+              title: `⚠️ Checks Failed on ${os}${isUpdate ? ' (Dependency Update)' : ''}`,
+              body: `Checks failed during automated validation on ${os}${isUpdate ? ' while testing dependency updates.' : '.'}\n
+              ${isUpdate ? 'This failure occurred on the dependency update branch `deps/update-flake-lock`.' : 'This failure occurred on the main branch.'}\n
               
               <details>
               <summary>Check Output</summary>
