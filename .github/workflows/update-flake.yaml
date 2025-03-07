@@ -60,7 +60,7 @@ jobs:
       - name: Repository Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.update-flake.outputs.update_available == 'true' && 'deps/update-flake-lock' || 'HEAD' }}
+          ref: update_flake_lock_action
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
