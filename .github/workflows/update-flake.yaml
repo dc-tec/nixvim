@@ -44,7 +44,7 @@ jobs:
 
       - name: Update flake.lock
         if: steps.check_updates.outputs.update_available == 'true'
-        uses: DeterminateSystems/update-flake-lock@v26
+        uses: DeterminateSystems/update-flake-lock@v27
         with:
           nix-options: --debug --log-format raw
           token: ${{ secrets.FLAKE_TOKEN }}
