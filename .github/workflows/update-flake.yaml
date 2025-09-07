@@ -100,7 +100,7 @@ jobs:
 
       - name: Create Issue on Build Failure
         if: env.build_status == 'failure'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const os = '${{ matrix.os }}';
