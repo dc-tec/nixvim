@@ -39,6 +39,25 @@
           desc = "Toggle autoformat-on-save",
           bang = true,
         })
+
+        vim.api.nvim_create_user_command("AllFormatDisable", function()
+          vim.cmd([[ConformFormatDisable]]) -- conform-nvim
+          vim.cmd([[FormatDisable]]) -- lsp-conform
+        end, {
+          desc = "Disable formatting for all plugins",
+        })
+        vim.api.nvim_create_user_command("AllFormatEnable", function()
+          vim.cmd([[ConformFormatEnable]]) -- conform-nvim
+          vim.cmd([[FormatEnable]]) -- lsp-conform
+        end, {
+          desc = "Re-enable formatting for all plugins",
+        })
+        vim.api.nvim_create_user_command("AllFormatToggle", function()
+          vim.cmd([[ConformFormatToggle]]) -- conform-nvim
+          vim.cmd([[FormatToggle]]) -- lsp-conform
+        end, {
+          desc = "Toggle formatting for all plugins",
+        })
       '';
     plugins.conform-nvim = {
       enable = true;
