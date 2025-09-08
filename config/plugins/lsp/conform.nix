@@ -10,7 +10,7 @@
       ''
         local slow_format_filetypes = {}
 
-        vim.api.nvim_create_user_command("FormatDisable", function(args)
+        vim.api.nvim_create_user_command("ConformFormatDisable", function(args)
            if args.bang then
             -- FormatDisable! will disable formatting just for this buffer
             vim.b.disable_autoformat = true
@@ -21,13 +21,13 @@
           desc = "Disable autoformat-on-save",
           bang = true,
         })
-        vim.api.nvim_create_user_command("FormatEnable", function()
+        vim.api.nvim_create_user_command("ConformFormatEnable", function()
           vim.b.disable_autoformat = false
           vim.g.disable_autoformat = false
         end, {
           desc = "Re-enable autoformat-on-save",
         })
-        vim.api.nvim_create_user_command("FormatToggle", function(args)
+        vim.api.nvim_create_user_command("ConformFormatToggle", function(args)
           if args.bang then
             -- Toggle formatting for current buffer
             vim.b.disable_autoformat = not vim.b.disable_autoformat
