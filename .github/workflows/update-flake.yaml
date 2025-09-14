@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v18
+        uses: DeterminateSystems/nix-installer-action@v20
 
       - name: Check for Updates
         id: check_updates
@@ -74,7 +74,7 @@ jobs:
           ref: update_flake_lock_action
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v18
+        uses: DeterminateSystems/nix-installer-action@v20
 
       - name: Build and Test Configuration
         id: build
