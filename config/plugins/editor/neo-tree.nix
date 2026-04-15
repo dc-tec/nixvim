@@ -1,40 +1,42 @@
 {
   plugins.neo-tree = {
     enable = true;
-    sources = [
-      "filesystem"
-      "buffers"
-      "git_status"
-      "document_symbols"
-    ];
-    addBlankLineAtTop = false;
+    settings = {
+      sources = [
+        "filesystem"
+        "buffers"
+        "git_status"
+        "document_symbols"
+      ];
+      add_blank_line_at_top = false;
 
-    filesystem = {
-      bindToCwd = false;
-      followCurrentFile = {
-        enabled = true;
-      };
-    };
-
-    defaultComponentConfigs = {
-      indent = {
-        withExpanders = true;
-        expanderCollapsed = "󰅂";
-        expanderExpanded = "󰅀";
-        expanderHighlight = "NeoTreeExpander";
+      filesystem = {
+        bind_to_cwd = false;
+        follow_current_file = {
+          enabled = true;
+        };
       };
 
-      gitStatus = {
-        symbols = {
-          added = " ";
-          conflict = "󰩌 ";
-          deleted = "󱂥";
-          ignored = " ";
-          modified = " ";
-          renamed = "󰑕";
-          staged = "󰩍";
-          unstaged = "";
-          untracked = " ";
+      default_component_configs = {
+        indent = {
+          with_expanders = true;
+          expander_collapsed = "󰅂";
+          expander_expanded = "󰅀";
+          expander_highlight = "NeoTreeExpander";
+        };
+
+        git_status = {
+          symbols = {
+            added = " ";
+            conflict = "󰩌 ";
+            deleted = "󱂥";
+            ignored = " ";
+            modified = " ";
+            renamed = "󰑕";
+            staged = "󰩍";
+            unstaged = "";
+            untracked = " ";
+          };
         };
       };
     };

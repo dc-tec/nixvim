@@ -1,18 +1,17 @@
 {
   plugins.startup = {
     enable = true;
+    settings = {
+      colors = {
+        background = "#ffffff";
+        folded_section = "#ffffff";
+      };
 
-    colors = {
-      background = "#ffffff";
-      foldedSection = "#ffffff";
-    };
-
-    sections = {
       header = {
         type = "text";
-        oldfilesDirectory = false;
+        oldfiles_directory = false;
         align = "center";
-        foldSection = false;
+        fold_section = false;
         title = "Header";
         margin = 5;
         content = [
@@ -24,15 +23,15 @@
           " ╚═════╝░╚══════╝░╚════╝░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░░╚═╝░░░╚══════╝░╚════╝░╚═╝░░╚═╝"
         ];
         highlight = "Statement";
-        defaultColor = "";
-        oldfilesAmount = 0;
+        default_color = "";
+        oldfiles_amount = 0;
       };
 
       body = {
         type = "mapping";
-        oldfilesDirectory = false;
+        oldfiles_directory = false;
         align = "center";
-        foldSection = false;
+        fold_section = false;
         title = "Menu";
         margin = 5;
         content = [
@@ -68,21 +67,21 @@
           ]
         ];
         highlight = "string";
-        defaultColor = "";
-        oldfilesAmount = 0;
+        default_color = "";
+        oldfiles_amount = 0;
       };
-    };
 
-    options = {
-      paddings = [
-        1
-        3
+      options = {
+        paddings = [
+          1
+          3
+        ];
+      };
+
+      parts = [
+        "header"
+        "body"
       ];
     };
-
-    parts = [
-      "header"
-      "body"
-    ];
   };
 }
