@@ -50,7 +50,6 @@ home-manager.users.<user>.home.packages = [
 ### Completion
 
 - `cmp.nix`: Configures the cmp completion framework.
-- `cmp-copilot.nix`: Adds GitHub Copilot support to cmp.
 - `lspkind.nix`: Adds icons to lsp completion items.
 - `autopairs.nix`: Adds the autopairs plugin.
 - `schemastore.nix`: Adds the schemastore plugin for JSON and YAML schemas.
@@ -67,7 +66,6 @@ home-manager.users.<user>.home.packages = [
 - `illuminate.nix`: Configures the Illuminate plugin for highlighting other uses of the current word under the cursor.
 - `indent-blankline.nix`: Configures the Indent Blankline plugin for displaying indentation levels.
 - `todo-comments.nix`: Configures the Todo Comments plugin for highlighting TODO comments.
-- `copilot-chat.nix`: Configures the Copilot Chat plugin for interacting with GitHub Copilot.
 - `navic.nix`: Configures the Navic plugin, shows the current code context.
 
 ### UI Plugins
@@ -95,7 +93,7 @@ home-manager.users.<user>.home.packages = [
 - `mini.nix`: Configures the Mini plugin.
 - `obsidian.nix`: Confiugres the Obsidian plugin, for note-taking purposes.
 - `markdown-preview.nix`: Configures the Markdown Preview plugin.
-- `toggleterm.nix`: Configures Terminal plugin.
+- `toggleterm.nix`: Provides a floating scratch terminal; cmux owns persistent panes and sessions.
 
 Please refer to the individual `.nix` files for more detailed configuration information.
 

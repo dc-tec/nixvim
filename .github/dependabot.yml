@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: sunday
+      time: "00:30"
+      timezone: Europe/Amsterdam
+    labels:
+      - dependencies
+      - automated

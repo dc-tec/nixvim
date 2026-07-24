@@ -8,7 +8,43 @@
     };
     folding.enable = false;
     nixvimInjections = true;
-    grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+    grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+      bash
+      bicep
+      css
+      diff
+      dockerfile
+      git_config
+      git_rebase
+      gitattributes
+      gitcommit
+      gitignore
+      go
+      gomod
+      gosum
+      gotmpl
+      gowork
+      hcl
+      helm
+      html
+      javascript
+      json
+      lua
+      make
+      markdown
+      markdown_inline
+      nix
+      python
+      regex
+      sql
+      terraform
+      toml
+      tsx
+      typescript
+      vim
+      vimdoc
+      yaml
+    ];
   };
 
   plugins.treesitter-textobjects = {

@@ -3,149 +3,67 @@ name: Update Flake and Validate Build
 on:
   schedule:
     - cron: "30 00 * * 1"
-  workflow_dispatch: # Allow manual triggering
+  workflow_dispatch:
 
-# Set default permissions as read only
 permissions: read-all
 
 jobs:
   update-flake:
     runs-on: ubuntu-latest
     permissions:
-      # Only need contents write to update the flake lock file
       contents: write
+      pull-requests: write
     outputs:
-      update_available: ${{ steps.check_updates.outputs.update_available }}
-    
+      operation: ${{ steps.update.outputs.pull-request-operation }}
+      pull-request-number: ${{ steps.update.outputs.pull-request-number }}
+      pull-request-url: ${{ steps.update.outputs.pull-request-url }}
+
     steps:
-      - name: Repository Checkout
-        uses: actions/checkout@v5
+      - name: Repository checkout
+        uses: actions/checkout@v6
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v20
-
-      - name: Check for Updates
-        id: check_updates
-        run: |
-          # Create a temporary copy of flake.lock
-          cp flake.lock flake.lock.backup
-          
-          # Try to update flake.lock
-          nix flake update
-          
-          # Check if there are differences
-          if ! cmp -s flake.lock flake.lock.backup; then
-            echo "update_available=true" >> "$GITHUB_OUTPUT"
-            # Restore original flake.lock
-            mv flake.lock.backup flake.lock
-          else
-            echo "update_available=false" >> "$GITHUB_OUTPUT"
-          fi
+        uses: DeterminateSystems/nix-installer-action@v21
 
       - name: Update flake.lock
-        if: steps.check_updates.outputs.update_available == 'true'
-        uses: DeterminateSystems/update-flake-lock@v27
+        id: update
+        uses: DeterminateSystems/update-flake-lock@v28
         with:
-          nix-options: --debug --log-format raw
-          token: ${{ secrets.FLAKE_TOKEN }}
-          pr-title: "deps: update flake.lock"
+          branch: deps/update-flake-lock
+          commit-msg: "chore(deps): update flake.lock"
+          pr-title: "chore(deps): update flake.lock"
+          pr-body: |
+            Automated flake input update created by the update-flake-lock action.
+
+            The updated configuration is validated on Linux and macOS by this workflow.
           pr-labels: |
             dependencies
             automated
 
-  build-and-check:
+  validate-update:
     needs: update-flake
+    if: >-
+      needs.update-flake.outputs.operation == 'created' ||
+      needs.update-flake.outputs.operation == 'updated'
     permissions:
-      # Needed for checking out code
       contents: read
-      # Needed for creating issues
-      issues: write
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
-      fail-fast: false # Continue with other jobs even if one fails
-    
+        os:
+          - ubuntu-latest
+          - macos-latest
     runs-on: ${{ matrix.os }}
-    
+    timeout-minutes: 45
+
     steps:
-      - name: Repository Checkout
-        uses: actions/checkout@v5
+      - name: Repository checkout
+        uses: actions/checkout@v6
         with:
-          ref: update_flake_lock_action
+          ref: deps/update-flake-lock
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v20
+        uses: DeterminateSystems/nix-installer-action@v21
 
-      - name: Build and Test Configuration
-        id: build
-        continue-on-error: true # Continue to next steps even if build fails
-        run: |
-          set +e  # Don't exit immediately on error
-          # Run the build and capture output
-          OUTPUT=$(nix build .# 2>&1)
-          BUILD_EXIT_CODE=$?
-          echo "build_output<<EOF" >> $GITHUB_ENV
-          echo "$OUTPUT" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          
-          # Check if build succeeded
-          if [ $BUILD_EXIT_CODE -eq 0 ]; then
-            echo "build_status=success" >> $GITHUB_ENV
-          else
-            echo "build_status=failure" >> $GITHUB_ENV
-            # Ensure the error is visible in the logs
-            echo "::error::Build failed with exit code $BUILD_EXIT_CODE"
-            echo "$OUTPUT"
-          fi
-
-      - name: Create Issue on Build Failure
-        if: env.build_status == 'failure'
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const os = '${{ matrix.os }}';
-            const buildOutput = process.env.build_output;
-            const isUpdate = '${{ needs.update-flake.outputs.update_available }}' === 'true';
-            
-            // Extract warnings and errors from build output
-            const warnings = buildOutput.match(/evaluation warning:[^\n]+/g) || [];
-            const errors = buildOutput.match(/error:[^\n]+/g) || [];
-            
-            // Create a summary section
-            const summary = [
-              warnings.length > 0 ? `${warnings.length} evaluation warnings` : '',
-              errors.length > 0 ? `${errors.length} errors` : ''
-            ].filter(Boolean).join(' and ');
-            
-            // Get repository information from context
-            const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
-            
-            await github.rest.issues.create({
-              owner,
-              repo,
-              title: `🔨 Build Failed on ${os}: ${summary}${isUpdate ? ' (Dependency Update)' : ''}`,
-              body: `Build failed during automated validation on ${os}${isUpdate ? ' while testing dependency updates.' : '.'}\n
-              ${isUpdate ? 'This failure occurred on the dependency update branch `deps/update-flake-lock`.' : 'This failure occurred on the main branch.'}\n
-              
-              ### Summary
-              ${summary}\n
-              
-              ${warnings.length > 0 ? `### Warnings\n\`\`\`\n${warnings.join('\n')}\n\`\`\`\n` : ''}
-              ${errors.length > 0 ? `### Errors\n\`\`\`\n${errors.join('\n')}\n\`\`\`\n` : ''}
-              
-              <details>
-              <summary>Build Output</summary>
-              
-              \`\`\`
-              ${buildOutput}
-              \`\`\`
-              </details>
-              
-              Please review the build output and fix any issues.`,
-              labels: [
-                'build-failure',
-                'bug',
-                ...(warnings.length > 0 ? ['has-warnings'] : []),
-                ...(errors.length > 0 ? ['has-errors'] : [])
-              ]
-            });
+      - name: Validate configuration
+        run: nix flake check --print-build-logs
