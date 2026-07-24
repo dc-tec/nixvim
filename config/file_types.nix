@@ -12,8 +12,8 @@
       ];
       pattern = [
         "*.tf"
-        " *.tfvars"
-        " *.hcl"
+        "*.tfvars"
+        "*.hcl"
       ];
       command = "set ft=terraform";
     }
