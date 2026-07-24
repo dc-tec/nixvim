@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v21
+        uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Update flake.lock
         id: update
@@ -63,7 +63,7 @@ jobs:
           ref: deps/update-flake-lock
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v21
+        uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Validate configuration
         run: nix flake check --print-build-logs
