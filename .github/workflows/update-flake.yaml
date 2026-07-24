@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Repository checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21
@@ -58,7 +58,7 @@ jobs:
 
     steps:
       - name: Repository checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: deps/update-flake-lock
 
