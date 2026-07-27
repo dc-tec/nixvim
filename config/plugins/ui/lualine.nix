@@ -1,4 +1,7 @@
-_: {
+{ lib, ... }:
+{
+  extraFiles."lua/vcs_status.lua".source = ./vcs_status.lua;
+
   plugins.lualine = {
     enable = true;
     settings = {
@@ -29,6 +32,10 @@ _: {
             icon = "";
           }
           {
+            __unkeyed-1 = lib.nixvim.mkRaw "require('vcs_status').jj";
+            icon = "󱗆";
+          }
+          {
             __unkeyed-1 = "diff";
             symbols = {
               added = " ";
@@ -53,6 +60,10 @@ _: {
           }
         ];
         lualine_x = [
+          {
+            __unkeyed-1 = lib.nixvim.mkRaw "require('vcs_status').forges";
+            icon = "󰛳";
+          }
           {
             __unkeyed-1 = "filetype";
             icon_only = true;

@@ -103,18 +103,11 @@
             "isort"
           ];
           lua = [ "stylua" ];
-          nix = [ "nixfmt" ];
           markdown = {
             __unkeyed-1 = "prettierd";
             __unkeyed-2 = "prettier";
             stop_after_first = true;
           };
-          yaml = {
-            __unkeyed-1 = "prettierd";
-            __unkeyed-2 = "prettier";
-            stop_after_first = true;
-          };
-          terraform = [ "terraform_fmt" ];
           bicep = [ "bicep" ];
           bash = [
             "shellcheck"
@@ -131,9 +124,6 @@
           };
           isort = {
             command = "${lib.getExe pkgs.isort}";
-          };
-          nixfmt = {
-            command = "${lib.getExe pkgs.nixfmt}";
           };
           alejandra = {
             command = "${lib.getExe pkgs.alejandra}";

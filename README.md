@@ -71,17 +71,24 @@ home-manager.users.<user>.home.packages = [
 ### UI Plugins
 
 - `bufferline.nix`: Configures the Bufferline plugin for enhanced buffer/tab display.
-- `lualine.nix`: Configures the Lualine status line plugin.
+- `lualine.nix`: Configures Lualine with Git, Jujutsu, and configured-forge context.
 - `startup.nix`: Configures the startup screen.
 
 ### LSP
 
 - `lsp.nix`: Configures the Neovim LSP client.
+- `go.nix`: Configures Go language support, formatting, tests, and debugging.
+- `ocaml.nix`: Configures project-aware OCaml-LSP and OCamlFormat fallback support.
+- `nix.nix`: Configures nixd and nixfmt.
+- `hcl.nix`: Configures OpenTofu LSP/formatting while keeping generic HCL schema-neutral.
+- `yaml.nix`: Configures SchemaStore-backed YAML and Helm language support.
+- `rust.nix`: Configures Rustaceanvim, Neotest integration, and Rust-specific actions.
 - `conform.nix`: Configures the Conform plugin for automatic code formatting.
 - `fidget.nix`: Configures the Fidget plugin for displaying LSP diagnostics in the status line.
 
 ### Git
 
+- `jj.nix`: Configures Jujutsu commands and key mappings.
 - `lazygit.nix`: Configures the LazyGit plugin for Git integration.
 - `gitsigns.nix`: Configures the GitSigns plugin for displaying Git diff information.
 
