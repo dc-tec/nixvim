@@ -34,10 +34,17 @@ _: {
 
     # LSP and formatting
     ./plugins/lsp/lsp.nix
+    ./plugins/lsp/go.nix
+    ./plugins/lsp/ocaml.nix
+    ./plugins/lsp/nix.nix
+    ./plugins/lsp/hcl.nix
+    ./plugins/lsp/yaml.nix
+    ./plugins/lsp/rust.nix
     ./plugins/lsp/conform.nix
     ./plugins/lsp/fidget.nix
 
     # Git
+    ./plugins/git/jj.nix
     ./plugins/git/lazygit.nix
     ./plugins/git/gitsigns.nix
 

@@ -12,10 +12,35 @@
       ];
       pattern = [
         "*.tf"
-        "*.tfvars"
-        "*.hcl"
       ];
-      command = "set ft=terraform";
+      command = "setlocal filetype=terraform";
+    }
+    {
+      group = "filetypes";
+      event = [
+        "BufRead"
+        "BufNewFile"
+      ];
+      pattern = [ "*.tfvars" ];
+      command = "setlocal filetype=opentofu-vars";
+    }
+    {
+      group = "filetypes";
+      event = [
+        "BufRead"
+        "BufNewFile"
+      ];
+      pattern = [ "*.tofu" ];
+      command = "setlocal filetype=opentofu";
+    }
+    {
+      group = "filetypes";
+      event = [
+        "BufRead"
+        "BufNewFile"
+      ];
+      pattern = [ "*.hcl" ];
+      command = "setlocal filetype=hcl";
     }
   ];
 
@@ -30,7 +55,7 @@
         "*.bicep"
         "*.bicepparam"
       ];
-      command = "set ft=bicep";
+      command = "setlocal filetype=bicep";
     }
   ];
 }

@@ -34,8 +34,11 @@
       markdown
       markdown_inline
       nix
+      ocaml
+      ocaml_interface
       python
       regex
+      rust
       sql
       terraform
       toml
