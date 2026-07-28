@@ -5,6 +5,7 @@
       cmd.describe.editor = {
         type = "buffer";
       };
+      diff.backend = "codediff";
     };
   };
 
