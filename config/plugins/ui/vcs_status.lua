@@ -21,8 +21,16 @@ local function buffer_root()
 	return root
 end
 
-local function refresh_lualine()
+local function refresh_ui()
 	vim.schedule(function()
+		if vim.bo.filetype == "snacks_dashboard" then
+			local dashboard_ok, dashboard = pcall(require, "snacks.dashboard")
+			if dashboard_ok then
+				dashboard.update()
+			end
+			return
+		end
+
 		local ok, lualine = pcall(require, "lualine")
 		if ok then
 			lualine.refresh({ place = { "statusline" } })
@@ -34,7 +42,7 @@ local function finish(entry)
 	entry.pending = entry.pending - 1
 	if entry.pending == 0 then
 		entry.updated_at = now_ms()
-		refresh_lualine()
+		refresh_ui()
 	end
 end
 
@@ -51,6 +59,41 @@ local function parse_jj(entry, result)
 	else
 		entry.jj = nil
 	end
+	finish(entry)
+end
+
+local function parse_git(entry, result)
+	if result.code ~= 0 then
+		entry.git = nil
+		finish(entry)
+		return
+	end
+
+	local status = {
+		branch = "",
+		changed = 0,
+		conflicted = 0,
+		ahead = 0,
+		behind = 0,
+	}
+
+	for line in (result.stdout or ""):gmatch("[^\r\n]+") do
+		local branch = line:match("^# branch%.head (.+)$")
+		local ahead, behind = line:match("^# branch%.ab %+(%d+) %-(%d+)$")
+		if branch and branch ~= "(detached)" then
+			status.branch = branch
+		elseif ahead and behind then
+			status.ahead = tonumber(ahead) or 0
+			status.behind = tonumber(behind) or 0
+		elseif line:match("^[12u?] ") then
+			status.changed = status.changed + 1
+			if line:match("^u ") then
+				status.conflicted = status.conflicted + 1
+			end
+		end
+	end
+
+	entry.git = status
 	finish(entry)
 end
 
@@ -84,9 +127,10 @@ local function refresh(root, entry)
 	end
 
 	local is_jj = vim.uv.fs_stat(root .. "/.jj") ~= nil
-	entry.pending = is_jj and 2 or 1
+	entry.pending = 2
 
 	if is_jj then
+		entry.git = nil
 		vim.system({
 			"jj",
 			"--ignore-working-copy",
@@ -115,6 +159,13 @@ local function refresh(root, entry)
 		end)
 	else
 		entry.jj = nil
+		vim.system(
+			{ "git", "-C", root, "status", "--porcelain=v2", "--branch" },
+			{ text = true },
+			function(result)
+				parse_git(entry, result)
+			end
+		)
 		vim.system({ "git", "-C", root, "remote", "--verbose" }, { text = true }, function(result)
 			parse_forges(entry, result)
 		end)
@@ -132,6 +183,7 @@ local function current_entry()
 		entry = {
 			pending = 0,
 			updated_at = 0,
+			git = nil,
 			jj = nil,
 			forges = "",
 		}
@@ -172,6 +224,50 @@ end
 function M.forges()
 	local entry = current_entry()
 	return entry and entry.forges or ""
+end
+
+function M.context()
+	local root = buffer_root()
+	if not root then
+		return vim.fs.basename(vim.uv.cwd() or "")
+	end
+
+	local entry = current_entry()
+	local parts = { vim.fs.basename(root) }
+
+	if entry and entry.jj then
+		table.insert(parts, "JJ " .. entry.jj.change_id)
+		if entry.jj.bookmarks ~= "" then
+			table.insert(parts, entry.jj.bookmarks)
+		end
+		if entry.jj.conflicted then
+			table.insert(parts, "conflicted")
+		end
+	elseif entry and entry.git then
+		table.insert(parts, entry.git.branch ~= "" and entry.git.branch or "Git")
+		if entry.git.changed == 0 then
+			table.insert(parts, "clean")
+		else
+			table.insert(parts, entry.git.changed .. " changed")
+		end
+		if entry.git.conflicted > 0 then
+			table.insert(parts, entry.git.conflicted .. " conflicted")
+		end
+		if entry.git.ahead > 0 then
+			table.insert(parts, "↑" .. entry.git.ahead)
+		end
+		if entry.git.behind > 0 then
+			table.insert(parts, "↓" .. entry.git.behind)
+		end
+	else
+		table.insert(parts, "Git")
+	end
+
+	if entry and entry.forges ~= "" then
+		table.insert(parts, entry.forges)
+	end
+
+	return table.concat(parts, " | ")
 end
 
 local group = vim.api.nvim_create_augroup("vcs_statusline", { clear = true })

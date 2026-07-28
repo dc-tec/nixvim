@@ -16,8 +16,7 @@ let
         return result.code == 0
       end
 
-      local function review_base()
-        local root = git_root()
+      local function review_base(root)
         local result = vim.system(
           { "git", "symbolic-ref", "--quiet", "--short", "refs/remotes/origin/HEAD" },
           { cwd = root, text = true }
@@ -40,22 +39,40 @@ let
       end
 
       local function with_review_base(callback)
-        local base = review_base()
+        local root = git_root()
+        local base = review_base(root)
         if not base then
           vim.notify("Could not determine the default review branch", vim.log.levels.ERROR)
           return
         end
-        callback(base)
+        callback(base, root)
       end
 
       vim.api.nvim_create_user_command("CodeReviewBranch", function()
         with_review_base(function(base)
-          vim.cmd("CodeDiff " .. vim.fn.fnameescape(base .. "...HEAD"))
+          vim.cmd("CodeDiff " .. vim.fn.fnameescape(base .. "..."))
         end)
-      end, { desc = "Review branch changes against its merge base" })
+      end, { desc = "Review branch and working-tree changes against their merge base" })
 
       vim.api.nvim_create_user_command("CodeReviewHistory", function()
-        with_review_base(function(base)
+        with_review_base(function(base, root)
+          local result = vim.system(
+            { "git", "rev-list", "--count", base .. "..HEAD" },
+            { cwd = root, text = true }
+          ):wait()
+          local count = result.code == 0 and tonumber(vim.trim(result.stdout or "")) or nil
+
+          if count == 0 then
+            vim.notify(
+              "No branch commits yet; uncommitted changes are available under Review branch (D)",
+              vim.log.levels.INFO
+            )
+            return
+          elseif count == nil then
+            vim.notify("Could not determine branch history", vim.log.levels.ERROR)
+            return
+          end
+
           vim.cmd("CodeDiff history " .. vim.fn.fnameescape(base .. "..HEAD") .. " --reverse")
         end)
       end, { desc = "Review branch commits in chronological order" })

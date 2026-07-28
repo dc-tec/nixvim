@@ -9,6 +9,7 @@
         "alpha"
         "harpoon"
         "reason"
+        "snacks_dashboard"
       ];
     };
   };

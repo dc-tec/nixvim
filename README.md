@@ -72,7 +72,7 @@ home-manager.users.<user>.home.packages = [
 
 - `bufferline.nix`: Configures the Bufferline plugin for enhanced buffer/tab display.
 - `lualine.nix`: Configures Lualine with Git, Jujutsu, and configured-forge context.
-- `startup.nix`: Configures the startup screen.
+- `dashboard.nix`: Configures a project-aware Snacks dashboard for review, task, and navigation workflows.
 
 ### LSP
 

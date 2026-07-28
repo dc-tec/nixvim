@@ -1,7 +1,6 @@
 {
   autoGroups = {
     highlight_yank = { };
-    vim_enter = { };
     indentscope = { };
     restore_cursor = { };
   };
@@ -20,24 +19,11 @@
       };
     }
     {
-      group = "vim_enter";
-      event = [ "VimEnter" ];
-      pattern = "*";
-      callback = {
-        __raw = ''
-          function()
-            vim.cmd('Startup')
-          end
-        '';
-      };
-    }
-    {
       group = "indentscope";
       event = [ "FileType" ];
       pattern = [
         "help"
-        "Startup"
-        "startup"
+        "snacks_dashboard"
         "neo-tree"
         "Trouble"
         "trouble"
