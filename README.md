@@ -88,12 +88,15 @@ home-manager.users.<user>.home.packages = [
 
 ### Git
 
+- `codediff.nix`: Configures a read-only review workflow for working-tree, branch, and commit-history diffs.
 - `jj.nix`: Configures Jujutsu commands and key mappings.
 - `lazygit.nix`: Configures the LazyGit plugin for Git integration.
-- `gitsigns.nix`: Configures the GitSigns plugin for displaying Git diff information.
+- `gitsigns.nix`: Configures GitSigns diff markers, hunk navigation, inline previews, blame, and word diffs.
 
 ### Utils
 
+- `trouble.nix`: Provides persistent diagnostics, quickfix, location-list, and TODO triage views.
+- `overseer.nix`: Runs bounded, repo-aware validation tasks while keeping persistent sessions in cmux.
 - `telescope.nix`: Configures the Telescope plugin for fuzzy finding and picking.
 - `whichkey.nix`: Configures the WhichKey plugin for displaying key mappings.
 - `extra_plugins.nix`: Configures additional plugins.

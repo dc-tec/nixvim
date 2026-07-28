@@ -76,6 +76,9 @@
       # Don't show mode in the command line
       showmode = false;
 
+      # Improve change alignment in native diff views
+      diffopt = "internal,filler,closeoff,algorithm:histogram,indent-heuristic,linematch:60";
+
       # Open new split below the current window
       splitbelow = true;
 
