@@ -11,13 +11,13 @@
           "fzf"
           "neo-tree"
         ];
-        disabledFiletypes = {
+        disabled_filetypes = {
           statusline = [
-            "startup"
             "alpha"
+            "snacks_dashboard"
           ];
         };
-        theme = "catppuccin";
+        theme = "catppuccin-nvim";
       };
       sections = {
         lualine_a = [
