@@ -10,6 +10,14 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
     };
+    md-render = {
+      url = "github:delphinus/md-render.nvim/v3.4.0";
+      flake = false;
+    };
+    mmdr = {
+      url = "github:1jehuang/mermaid-rs-renderer/v0.3.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -44,7 +52,8 @@
             module = import ./config; # import the module directly
             # You can use `extraSpecialArgs` to pass additional arguments to your module files
             extraSpecialArgs = {
-              # inherit (inputs) foo;
+              mdRender = inputs.md-render;
+              mmdr = inputs.mmdr.packages.${system}.default;
             };
           };
           nvim = nixvim'.makeNixvimWithModule nixvimModule;

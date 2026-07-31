@@ -55,6 +55,63 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "md-render": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783476820,
+        "narHash": "sha256-q/0ZRbsvADdS7LBD03uuAABdkE330jbIHY8066t0MvI=",
+        "owner": "delphinus",
+        "repo": "md-render.nvim",
+        "rev": "56057d92d636a45cdeac5d1857e776e10d279d69",
+        "type": "github"
+      },
+      "original": {
+        "owner": "delphinus",
+        "ref": "v3.4.0",
+        "repo": "md-render.nvim",
+        "type": "github"
+      }
+    },
+    "mmdr": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783356010,
+        "narHash": "sha256-uekh1vJ19dAPP7+4PiqSlJizApZLpDhBWBoyN+fgS9s=",
+        "owner": "1jehuang",
+        "repo": "mermaid-rs-renderer",
+        "rev": "2f993bd79a55235eb59a34d807852276ba25bea7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "1jehuang",
+        "ref": "v0.3.1",
+        "repo": "mermaid-rs-renderer",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1785318670,
@@ -122,7 +179,7 @@
       "inputs": {
         "flake-parts": "flake-parts_2",
         "nixpkgs": "nixpkgs_2",
-        "systems": "systems"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1784814601,
@@ -160,12 +217,29 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "md-render": "md-render",
+        "mmdr": "mmdr",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "pre-commit-hooks": "pre-commit-hooks"
       }
     },
     "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
       "locked": {
         "lastModified": 1774449309,
         "narHash": "sha256-brhZ8DmuGtzkCYHJg4HEd602amKm89Y9ytsFZ5uWD1w=",
