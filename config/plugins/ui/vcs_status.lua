@@ -38,6 +38,92 @@ local function refresh_ui()
 	end)
 end
 
+local function range_length(range)
+	if type(range) ~= "table" then
+		return 0
+	end
+
+	local start_line = tonumber(range.start_line)
+	local end_line = tonumber(range.end_line)
+	if not start_line or not end_line then
+		return 0
+	end
+
+	return math.max(0, end_line - start_line)
+end
+
+local function buffer_line_count(bufnr)
+	if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
+		return 0
+	end
+
+	local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+	if #lines == 1 and lines[1] == "" then
+		return 0
+	end
+	return #lines
+end
+
+local function codediff_line_stats()
+	local ok, lifecycle = pcall(require, "codediff.ui.lifecycle")
+	if not ok then
+		return nil
+	end
+
+	local session_ok, session = pcall(lifecycle.get_session, vim.api.nvim_get_current_tabpage())
+	local diff_result = session_ok and session and session.stored_diff_result or nil
+	if type(diff_result) ~= "table" or type(diff_result.changes) ~= "table" then
+		return nil
+	end
+
+	local stats = { added = 0, modified = 0, removed = 0 }
+	for _, change in ipairs(diff_result.changes) do
+		local original = range_length(change.original)
+		local modified = range_length(change.modified)
+		local replaced = math.min(original, modified)
+
+		stats.modified = stats.modified + replaced
+		stats.removed = stats.removed + original - replaced
+		stats.added = stats.added + modified - replaced
+	end
+
+	-- Added, deleted, and untracked files use CodeDiff's single-pane view and
+	-- therefore have no diff ranges. Count the populated side directly.
+	if #diff_result.changes == 0 then
+		if session.original_path == "" and session.modified_path ~= "" then
+			stats.added = buffer_line_count(session.modified_bufnr)
+		elseif session.modified_path == "" and session.original_path ~= "" then
+			stats.removed = buffer_line_count(session.original_bufnr)
+		end
+	end
+
+	return stats
+end
+
+local function gitsigns_line_stats()
+	local status = vim.b.gitsigns_status_dict
+	if type(status) ~= "table" then
+		return nil
+	end
+
+	return {
+		added = tonumber(status.added) or 0,
+		modified = tonumber(status.changed) or 0,
+		removed = tonumber(status.removed) or 0,
+	}
+end
+
+function M.diff()
+	return codediff_line_stats() or gitsigns_line_stats()
+end
+
+local codediff_group = vim.api.nvim_create_augroup("VcsStatusCodeDiff", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+	group = codediff_group,
+	pattern = { "CodeDiffOpen", "CodeDiffFileSelect", "CodeDiffClose" },
+	callback = refresh_ui,
+})
+
 local function finish(entry)
 	entry.pending = entry.pending - 1
 	if entry.pending == 0 then

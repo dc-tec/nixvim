@@ -37,6 +37,7 @@
           }
           {
             __unkeyed-1 = "diff";
+            source = lib.nixvim.mkRaw "require('vcs_status').diff";
             symbols = {
               added = " ";
               modified = " ";
