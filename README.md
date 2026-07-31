@@ -102,7 +102,7 @@ home-manager.users.<user>.home.packages = [
 - `extra_plugins.nix`: Configures additional plugins.
 - `mini.nix`: Configures the Mini plugin.
 - `obsidian.nix`: Confiugres the Obsidian plugin, for note-taking purposes.
-- `markdown-preview.nix`: Configures the Markdown Preview plugin.
+- `md-render.nix`: Provides in-terminal Markdown previews, synchronized splits, and native Mermaid rendering.
 - `toggleterm.nix`: Provides a floating scratch terminal; cmux owns persistent panes and sessions.
 
 Please refer to the individual `.nix` files for more detailed configuration information.
