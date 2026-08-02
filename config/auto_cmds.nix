@@ -23,6 +23,7 @@
       event = [ "FileType" ];
       pattern = [
         "help"
+        "archlens"
         "snacks_dashboard"
         "neo-tree"
         "Trouble"

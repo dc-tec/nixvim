@@ -50,6 +50,7 @@ _: {
     ./plugins/git/gitsigns.nix
 
     # Utils
+    ./plugins/utils/archlens.nix
     ./plugins/utils/trouble.nix
     ./plugins/utils/overseer.nix
     ./plugins/utils/telescope.nix
