@@ -14,6 +14,18 @@ _: {
   keymaps = [
     {
       mode = "n";
+      key = "<leader>cs";
+      action = "<cmd>Trouble symbols toggle focus=false<cr>";
+      options.desc = "Document symbols";
+    }
+    {
+      mode = "n";
+      key = "<leader>cl";
+      action = "<cmd>Trouble lsp toggle focus=false win.position=right<cr>";
+      options.desc = "LSP locations";
+    }
+    {
+      mode = "n";
       key = "<leader>xx";
       action = "<cmd>Trouble diagnostics toggle<cr>";
       options.desc = "Workspace diagnostics";

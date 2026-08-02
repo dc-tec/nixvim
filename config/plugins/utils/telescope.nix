@@ -1,6 +1,10 @@
+{ pkgs, ... }:
 {
+  extraPlugins = [ pkgs.vimPlugins.telescope-hierarchy-nvim ];
+
   plugins.telescope = {
     enable = true;
+    enabledExtensions = [ "hierarchy" ];
     extensions = {
       file-browser = {
         enable = true;
@@ -17,6 +21,11 @@
           };
         };
         sorting_strategy = "ascending";
+      };
+      extensions.hierarchy = {
+        initial_multi_expand = false;
+        multi_depth = 5;
+        layout_strategy = "horizontal";
       };
     };
     keymaps = {
@@ -173,6 +182,22 @@
     };
   };
   keymaps = [
+    {
+      mode = "n";
+      key = "<leader>ci";
+      action = "<cmd>Telescope hierarchy incoming_calls<cr>";
+      options = {
+        desc = "Incoming call hierarchy";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>co";
+      action = "<cmd>Telescope hierarchy outgoing_calls<cr>";
+      options = {
+        desc = "Outgoing call hierarchy";
+      };
+    }
     {
       mode = "n";
       key = "<leader>sd";
