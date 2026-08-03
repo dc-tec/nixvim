@@ -6,7 +6,10 @@
 }:
 {
   extraPlugins = [ archlens ];
-  extraPackagesAfter = [ pkgs.ast-grep ];
+  extraPackagesAfter = [
+    pkgs.ast-grep
+    pkgs.ripgrep
+  ];
 
   extraConfigLua = lib.mkAfter ''
     require("archlens").setup({
@@ -18,6 +21,11 @@
         timeout_ms = 15000,
         max_results = 80,
         min_name_length = 5,
+      },
+      imports = {
+        inbound = {
+          command = "${lib.getExe pkgs.ripgrep}",
+        },
       },
     })
   '';
