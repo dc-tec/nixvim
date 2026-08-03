@@ -10,9 +10,12 @@
     packageFallback = true;
   };
 
-  # OCaml-LSP delegates formatting to ocamlformat. Keep the Nix package as a
-  # fallback so a project-local/opam version remains authoritative.
-  extraPackagesAfter = [ pkgs.ocamlPackages.ocamlformat ];
+  # OCaml-LSP needs Dune to load project documents and delegates formatting to
+  # ocamlformat. Keep both as fallbacks so project-local tools remain authoritative.
+  extraPackagesAfter = [
+    pkgs.dune_3
+    pkgs.ocamlPackages.ocamlformat
+  ];
 
   autoCmd = [
     {

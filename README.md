@@ -95,6 +95,7 @@ home-manager.users.<user>.home.packages = [
 
 ### Utils
 
+- `archlens.nix`: Installs and configures the published ArchLens Neovim plugin.
 - `trouble.nix`: Provides persistent diagnostics, quickfix, location-list, and TODO triage views.
 - `overseer.nix`: Runs bounded, repo-aware validation tasks while keeping persistent sessions in cmux.
 - `telescope.nix`: Configures the Telescope plugin for fuzzy finding and picking.

@@ -10,6 +10,14 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
     };
+    archlens = {
+      url = "github:dc-tec/archlens";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        nixvim.follows = "nixvim";
+      };
+    };
     md-render = {
       url = "github:delphinus/md-render.nvim/v3.4.0";
       flake = false;
@@ -52,6 +60,7 @@
             module = import ./config; # import the module directly
             # You can use `extraSpecialArgs` to pass additional arguments to your module files
             extraSpecialArgs = {
+              archlens = inputs.archlens.packages.${system}.default;
               mdRender = inputs.md-render;
               mmdr = inputs.mmdr.packages.${system}.default;
             };

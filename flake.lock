@@ -1,5 +1,31 @@
 {
   "nodes": {
+    "archlens": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixvim": [
+          "nixvim"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785754423,
+        "narHash": "sha256-xYVTi6/3p4bFqoTYKrgUqXBQP8H1ZOq5qv7aqW6AcQ4=",
+        "owner": "dc-tec",
+        "repo": "archlens",
+        "rev": "1c5454f1d559c1e1b9744ea8b31037cc3ce44aa7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dc-tec",
+        "repo": "archlens",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -216,6 +242,7 @@
     },
     "root": {
       "inputs": {
+        "archlens": "archlens",
         "flake-parts": "flake-parts",
         "md-render": "md-render",
         "mmdr": "mmdr",
