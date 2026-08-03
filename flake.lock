@@ -13,11 +13,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785738998,
-        "narHash": "sha256-3uhXT7heuM1plzzRsEZ06KtsPs9Enuuo8+Dbi6uK9WE=",
+        "lastModified": 1785754423,
+        "narHash": "sha256-xYVTi6/3p4bFqoTYKrgUqXBQP8H1ZOq5qv7aqW6AcQ4=",
         "owner": "dc-tec",
         "repo": "archlens",
-        "rev": "2f9476f38479097383080f69daf6a89d037ee36a",
+        "rev": "1c5454f1d559c1e1b9744ea8b31037cc3ce44aa7",
         "type": "github"
       },
       "original": {
