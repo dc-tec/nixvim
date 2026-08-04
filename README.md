@@ -90,7 +90,7 @@ home-manager.users.<user>.home.packages = [
 
 - `codediff.nix`: Configures a read-only review workflow for working-tree, branch, and commit-history diffs.
 - `jj.nix`: Configures Jujutsu commands and key mappings.
-- `lazygit.nix`: Configures the LazyGit plugin for Git integration.
+- `lazygit.nix`: Configures LazyGit and opens selected worktrees in new, rooted editor tabs.
 - `gitsigns.nix`: Configures GitSigns diff markers, hunk navigation, inline previews, blame, and word diffs.
 
 ### Utils
