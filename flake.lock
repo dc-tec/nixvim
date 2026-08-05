@@ -13,15 +13,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1785797889,
-        "narHash": "sha256-JeGnzgdlGeZUMPwdOFE/1Pjkg9OzIQWgIpnqpbY7y/A=",
+        "lastModified": 1785925126,
+        "narHash": "sha256-eRkBFO2L9NbIT3eKRjPWf2whl5Q4nMOepVnCDoU1OKA=",
         "owner": "dc-tec",
         "repo": "archlens",
-        "rev": "f3be325fa72db87dc6137ae085208f11ca4a60d5",
+        "rev": "abe869e68e614469fe3130e557223590da3fdc68",
         "type": "github"
       },
       "original": {
         "owner": "dc-tec",
+        "ref": "main",
         "repo": "archlens",
         "type": "github"
       }
