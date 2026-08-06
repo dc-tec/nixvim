@@ -11,7 +11,7 @@
       url = "github:cachix/pre-commit-hooks.nix";
     };
     archlens = {
-      url = "github:dc-tec/archlens/main";
+      url = "github:dc-tec/archlens.nvim/main";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
