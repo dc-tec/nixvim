@@ -27,7 +27,7 @@ jobs:
 
       - name: Update flake.lock
         id: update
-        uses: DeterminateSystems/update-flake-lock@v28
+        uses: DeterminateSystems/update-flake-lock@v29
         with:
           branch: deps/update-flake-lock
           commit-msg: "chore(deps): update flake.lock"
